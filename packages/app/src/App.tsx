@@ -40,6 +40,7 @@ import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/
 import {darkTheme} from './theme/darkTheme';
 import {greenTheme} from './theme/greenTheme';
 import {lightTheme} from './theme/lightTheme';
+import {mochaMousseTheme} from './theme/mochaMouse';
 import LightIcon from '@material-ui/icons/WbSunny';
 import { UnifiedThemeProvider} from '@backstage/theme';
 
@@ -95,6 +96,14 @@ const app = createApp({
     icon: <LightIcon />,
     Provider: ({ children }) => (
       <UnifiedThemeProvider theme={greenTheme} children={children} />
+    ),
+  }, {
+    id: 'mochaMousse',
+    title: 'Mocha Mousse',
+    variant: 'light',
+    icon: <LightIcon />,
+    Provider: ({ children }) => (
+      <UnifiedThemeProvider theme={mochaMousseTheme} children={children} />
     ),
   }],
 });
