@@ -37,6 +37,11 @@ import { AppRouter, FlatRoutes } from '@backstage/core-app-api';
 import { CatalogGraphPage } from '@backstage/plugin-catalog-graph';
 import { RequirePermission } from '@backstage/plugin-permission-react';
 import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/alpha';
+import {darkTheme} from './theme/darkTheme';
+import {greenTheme} from './theme/greenTheme';
+import {lightTheme} from './theme/lightTheme';
+import LightIcon from '@material-ui/icons/WbSunny';
+import { UnifiedThemeProvider} from '@backstage/theme';
 
 const app = createApp({
   apis,
@@ -67,6 +72,31 @@ const app = createApp({
       />
     )
   },
+  themes: [{
+    id: 'light',
+    title: 'Light',
+    variant: 'light',
+    icon: <LightIcon />,
+    Provider: ({ children }) => (
+      <UnifiedThemeProvider theme={lightTheme} children={children} />
+    ),
+  }, {
+    id: 'dark',
+    title: 'Dark',
+    variant: 'dark',
+    icon: <LightIcon />,
+    Provider: ({ children }) => (
+      <UnifiedThemeProvider theme={darkTheme} children={children} />
+    ),
+  }, {
+    id: 'green',
+    title: 'Eco',
+    variant: 'light',
+    icon: <LightIcon />,
+    Provider: ({ children }) => (
+      <UnifiedThemeProvider theme={greenTheme} children={children} />
+    ),
+  }],
 });
 
 const routes = (
