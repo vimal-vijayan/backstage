@@ -44,6 +44,8 @@ import {mochaMousseTheme} from './theme/mochaMouse';
 import {myCustomTheme} from './theme/customTheme';
 import LightIcon from '@material-ui/icons/WbSunny';
 import { UnifiedThemeProvider} from '@backstage/theme';
+import { HomepageCompositionRoot } from '@backstage/plugin-home';
+import { HomePage } from './components/home/homePage';
 
 const app = createApp({
   apis,
@@ -119,8 +121,11 @@ const app = createApp({
 
 const routes = (
   <FlatRoutes>
-    <Route path="/" element={<Navigate to="catalog" />} />
-    <Route path="/catalog" element={<CatalogIndexPage />} />
+    {/* <Route path="/" element={<Navigate to="catalog" />} /> */}
+    <Route path="/" element={<HomepageCompositionRoot />}>
+      <HomePage />
+    </Route>
+    <Route path='/catalog' element={<CatalogIndexPage />} />
     <Route
       path="/catalog/:namespace/:kind/:name"
       element={<CatalogEntityPage />}
