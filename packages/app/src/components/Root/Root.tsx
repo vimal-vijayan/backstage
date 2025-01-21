@@ -1,5 +1,6 @@
 import React, { PropsWithChildren } from 'react';
 import { makeStyles } from '@material-ui/core';
+
 import HomeIcon from '@material-ui/icons/Home';
 import ExtensionIcon from '@material-ui/icons/Extension';
 import LibraryBooks from '@material-ui/icons/LibraryBooks';
@@ -7,6 +8,8 @@ import CreateComponentIcon from '@material-ui/icons/AddCircleOutline';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import GroupIcon from '@material-ui/icons/People';
+import CategoryIcon from '@material-ui/icons/Category';
+import LayersIcon from '@material-ui/icons/Layers';
 
 import {
   Sidebar,
@@ -20,7 +23,7 @@ import {
   Link,
   SidebarSubmenu,
   SidebarSubmenuItem,
-  useSidebarOpenState, // <-- Import this hook
+  useSidebarOpenState,
 } from '@backstage/core-components';
 
 import {
@@ -29,7 +32,6 @@ import {
 } from '@backstage/plugin-user-settings';
 import { SidebarSearchModal } from '@backstage/plugin-search';
 import { MyGroupsSidebarItem } from '@backstage/plugin-org';
-
 import { useApp } from '@backstage/core-plugin-api';
 
 import LogoFull from './LogoFull';
@@ -52,7 +54,7 @@ const useSidebarLogoStyles = makeStyles({
 
 const SidebarLogo = () => {
   const classes = useSidebarLogoStyles();
-  const { isOpen } = useSidebarOpenState(); // <-- Use this to check open state
+  const { isOpen } = useSidebarOpenState();
 
   return (
     <div className={classes.root}>
@@ -69,42 +71,46 @@ export const Root = ({ children }: PropsWithChildren<{}>) => {
   return (
     <SidebarPage>
       <Sidebar>
+        {/* Logo */}
         <SidebarLogo />
+
+        {/* Search */}
         <SidebarGroup label="Search" icon={<SearchIcon />} to="/search">
           <SidebarSearchModal />
         </SidebarGroup>
+
         <SidebarDivider />
+
+        {/* Main Menu */}
         <SidebarGroup label="Menu" icon={<MenuIcon />}>
-          {/* Updated Home Item with Catalog submenu */}
-          <SidebarItem icon={HomeIcon} to="catalog" text="Home">
-            <SidebarSubmenu title="Catalog">
+          {/* Simple items */}
+          <SidebarItem icon={HomeIcon} to="/" text="Home" />
+          <SidebarItem icon={CategoryIcon} to="catalog" text="Catalog" />
+          <SidebarItem icon={ExtensionIcon} to="api-docs" text="APIs" />
+          <SidebarItem icon={LibraryBooks} to="docs" text="Docs" />
+          {/* Create... before Explore */}
+          <SidebarItem icon={CreateComponentIcon} to="create" text="Create..." />
+          <SidebarItem icon={LayersIcon} to="explore" text="Explore" />
+
+          <SidebarDivider />
+
+          {/* Example: My Groups (optional) */}
+          <MyGroupsSidebarItem
+            singularTitle="My Group"
+            pluralTitle="My Groups"
+            icon={GroupIcon}
+          />
+
+          <SidebarDivider />
+
+          {/* A submenu item (example) */}
+          <SidebarItem icon={CreateComponentIcon} text="More">
+            <SidebarSubmenu title="More Options">
               <SidebarSubmenuItem
-                title="Domains"
-                to="catalog?filters[kind]=domain"
-                icon={app.getSystemIcon('kind:domain')}
+                title="Extra Create"
+                to="create/extra"
+                icon={CreateComponentIcon}
               />
-              <SidebarSubmenuItem
-                title="Systems"
-                to="catalog?filters[kind]=system"
-                icon={app.getSystemIcon('kind:system')}
-              />
-              <SidebarSubmenuItem
-                title="Components"
-                to="catalog?filters[kind]=component"
-                icon={app.getSystemIcon('kind:component')}
-              />
-              <SidebarSubmenuItem
-                title="APIs"
-                to="catalog?filters[kind]=api"
-                icon={app.getSystemIcon('kind:api')}
-              />
-              <SidebarDivider />
-              <SidebarSubmenuItem
-                title="Resources"
-                to="catalog?filters[kind]=resource"
-                icon={app.getSystemIcon('kind:resource')}
-              />
-              <SidebarDivider />
               <SidebarSubmenuItem
                 title="Groups"
                 to="catalog?filters[kind]=group"
@@ -118,22 +124,17 @@ export const Root = ({ children }: PropsWithChildren<{}>) => {
             </SidebarSubmenu>
           </SidebarItem>
 
-          <MyGroupsSidebarItem
-            singularTitle="My Group"
-            pluralTitle="My Groups"
-            icon={GroupIcon}
-          />
-          <SidebarItem icon={ExtensionIcon} to="api-docs" text="APIs" />
-          <SidebarItem icon={LibraryBooks} to="docs" text="Docs" />
-          <SidebarItem icon={CreateComponentIcon} to="create" text="Create..." />
-
           <SidebarDivider />
-          <SidebarScrollWrapper>
-            {/* Scrollable space for future nav items */}
-          </SidebarScrollWrapper>
+
+          {/* Scrollable placeholder */}
+          <SidebarScrollWrapper />
         </SidebarGroup>
+
         <SidebarSpace />
+
         <SidebarDivider />
+
+        {/* Settings */}
         <SidebarGroup
           label="Settings"
           icon={<UserSettingsSignInAvatar />}
@@ -142,6 +143,8 @@ export const Root = ({ children }: PropsWithChildren<{}>) => {
           <SidebarSettings />
         </SidebarGroup>
       </Sidebar>
+
+      {/* Main content */}
       {children}
     </SidebarPage>
   );
