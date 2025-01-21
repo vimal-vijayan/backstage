@@ -62,50 +62,37 @@ import {
           fontSize: 64,
           fontWeight: 600,
           marginBottom: 16,
-          color: '#FFFFFF',
         },
         h2: {
           fontSize: 48,
           fontWeight: 600,
           marginBottom: 14,
-          color: '#FFFFFF',
+          
         },
         h3: {
           fontSize: 36,
           fontWeight: 600,
           marginBottom: 12,
-          color: '#FFFFFF',
+          
         },
         h4: {
           fontSize: 30,
           fontWeight: 600,
           marginBottom: 10,
-          color: '#FFFFFF',
         },
         h5: {
           fontSize: 24,
           fontWeight: 600,
           marginBottom: 8,
-          color: '#FFFFFF',
+          
         },
         h6: {
           fontSize: 20,
           fontWeight: 600,
           marginBottom: 6,
-          color: '#FFFFFF',
+          
         },
-  
-        // Body text
-        body1: {
-          fontSize: 16,
-          lineHeight: 1.5,
-          color: '#E2DED9', // Light neutral text
-        },
-        body2: {
-          fontSize: 14,
-          lineHeight: 1.5,
-          color: '#CFC7C0', // Slightly darker for secondary text
-        },
+        
       },
     }),
     defaultPageTheme: 'home',

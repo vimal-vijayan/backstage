@@ -41,6 +41,7 @@ import {darkTheme} from './theme/darkTheme';
 import {greenTheme} from './theme/greenTheme';
 import {lightTheme} from './theme/lightTheme';
 import {mochaMousseTheme} from './theme/mochaMouse';
+import {myCustomTheme} from './theme/customTheme';
 import LightIcon from '@material-ui/icons/WbSunny';
 import { UnifiedThemeProvider} from '@backstage/theme';
 
@@ -104,6 +105,14 @@ const app = createApp({
     icon: <LightIcon />,
     Provider: ({ children }) => (
       <UnifiedThemeProvider theme={mochaMousseTheme} children={children} />
+    ),
+  },{
+    id: 'custom',
+    title: 'Custom',
+    variant: 'light',
+    icon: <LightIcon />,
+    Provider: ({ children }) => (
+      <UnifiedThemeProvider theme={myCustomTheme} children={children} />
     ),
   }],
 });
