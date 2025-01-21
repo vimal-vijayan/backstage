@@ -45,7 +45,7 @@ import {myCustomTheme} from './theme/customTheme';
 import LightIcon from '@material-ui/icons/WbSunny';
 import { UnifiedThemeProvider} from '@backstage/theme';
 import { HomepageCompositionRoot } from '@backstage/plugin-home';
-import { HomePage } from './components/home/homePage';
+import { HomePage } from './components/home/HomePage';
 
 const app = createApp({
   apis,
