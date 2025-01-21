@@ -7,6 +7,8 @@
  */
 
 import { createBackend } from '@backstage/backend-defaults';
+// microsoft provider
+import { customMicrosoftAuth } from './extensions/providers/microsoftAuth';
 
 const backend = createBackend();
 
@@ -19,8 +21,10 @@ backend.add(import('@backstage/plugin-techdocs-backend'));
 // auth plugin
 backend.add(import('@backstage/plugin-auth-backend'));
 // See https://backstage.io/docs/backend-system/building-backends/migrating#the-auth-plugin
+
 backend.add(import('@backstage/plugin-auth-backend-module-guest-provider'));
 // See https://backstage.io/docs/auth/guest/provider
+backend.add(customMicrosoftAuth)
 
 // catalog plugin
 backend.add(import('@backstage/plugin-catalog-backend'));

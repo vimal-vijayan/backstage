@@ -14191,6 +14191,7 @@ __metadata:
     "@backstage/plugin-auth-backend": "npm:^0.24.2"
     "@backstage/plugin-auth-backend-module-github-provider": "npm:^0.2.4"
     "@backstage/plugin-auth-backend-module-guest-provider": "npm:^0.2.4"
+    "@backstage/plugin-auth-backend-module-microsoft-provider": "npm:^0.2.4"
     "@backstage/plugin-auth-node": "npm:^0.5.6"
     "@backstage/plugin-catalog-backend": "npm:^1.30.0"
     "@backstage/plugin-catalog-backend-module-logs": "npm:^0.1.6"
