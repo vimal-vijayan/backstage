@@ -93,12 +93,8 @@ export const Root = ({ children }: PropsWithChildren<{}>) => {
           {/* Create... before Explore */}
           <SidebarItem icon={CreateComponentIcon} to="create" text="Create..." />
           <SidebarItem icon={LayersIcon} to="explore" text="Explore" />
-
           {/* Notifications */}
           <NotificationsSidebarItem />
-
-          <SidebarDivider />
-
           {/* Example: My Groups (optional) */}
           <MyGroupsSidebarItem
             singularTitle="My Group"
