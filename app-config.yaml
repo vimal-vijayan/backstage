@@ -88,6 +88,26 @@ scaffolder:
   # see https://backstage.io/docs/features/software-templates/configuration for software template options
 
 catalog:
+  providers:
+    microsoftGraphOrg:
+      ## READMORE: https://backstage.io/docs/integrations/azure/org
+      default:
+        tenantId: ${AUTH_MICROSOFT_TENANT_ID}
+        clientId: ${AUTH_MICROSOFT_CLIENT_ID}
+        clientSecret: ${AUTH_MICROSOFT_CLIENT_SECRET}
+        queryMode: basic
+        user:
+          loadPhotos: true
+        group: 
+          # search: '"displayName:co-idp-launchpad-dev"'
+          filter: startsWith(displayName, 'co-idp-launchpad-') 
+        userGroupMember:
+          # filter: "displayName eq 'co-idp-launchpad-dev'"
+          # search: '"displayName:co-idp-launchpad-dev"'
+          filter: startsWith(displayName, 'co-idp-launchpad-')
+        schedule:
+          frequency: PT1M
+          timeout: PT10M
   import:
     entityFilename: catalog-info.yaml
     pullRequestBranchName: backstage-integration
