@@ -11,6 +11,8 @@ import GroupIcon from '@material-ui/icons/People';
 import CategoryIcon from '@material-ui/icons/Category';
 import LayersIcon from '@material-ui/icons/Layers';
 
+import { NotificationsSidebarItem } from '@backstage/plugin-notifications';
+
 import {
   Sidebar,
   sidebarConfig,
@@ -91,6 +93,9 @@ export const Root = ({ children }: PropsWithChildren<{}>) => {
           {/* Create... before Explore */}
           <SidebarItem icon={CreateComponentIcon} to="create" text="Create..." />
           <SidebarItem icon={LayersIcon} to="explore" text="Explore" />
+
+          {/* Notifications */}
+          <NotificationsSidebarItem />
 
           <SidebarDivider />
 

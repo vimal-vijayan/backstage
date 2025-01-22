@@ -12,6 +12,7 @@ import { customMicrosoftAuth } from './extensions/providers/microsoftAuth';
 
 const backend = createBackend();
 
+backend.add(import('@backstage/plugin-notifications-backend'));
 backend.add(import('@backstage/plugin-app-backend'));
 backend.add(import('@backstage/plugin-proxy-backend'));
 backend.add(import('@backstage/plugin-scaffolder-backend'));
