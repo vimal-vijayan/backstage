@@ -75,14 +75,11 @@ export const Root = ({ children }: PropsWithChildren<{}>) => {
       <Sidebar>
         {/* Logo */}
         <SidebarLogo />
-
         {/* Search */}
         <SidebarGroup label="Search" icon={<SearchIcon />} to="/search">
           <SidebarSearchModal />
         </SidebarGroup>
-
         <SidebarDivider />
-
         {/* Main Menu */}
         <SidebarGroup label="Menu" icon={<MenuIcon />}>
           {/* Simple items */}
@@ -93,21 +90,15 @@ export const Root = ({ children }: PropsWithChildren<{}>) => {
           {/* Create... before Explore */}
           <SidebarItem icon={CreateComponentIcon} to="create" text="Create..." />
           <SidebarItem icon={LayersIcon} to="explore" text="Explore" />
-
           {/* Notifications */}
           <NotificationsSidebarItem />
-
-          <SidebarDivider />
-
           {/* Example: My Groups (optional) */}
           <MyGroupsSidebarItem
             singularTitle="My Group"
             pluralTitle="My Groups"
             icon={GroupIcon}
           />
-
           <SidebarDivider />
-
           {/* A submenu item (example) */}
           <SidebarItem icon={CreateComponentIcon} text="More">
             <SidebarSubmenu title="More Options">
@@ -128,17 +119,12 @@ export const Root = ({ children }: PropsWithChildren<{}>) => {
               />
             </SidebarSubmenu>
           </SidebarItem>
-
           <SidebarDivider />
-
           {/* Scrollable placeholder */}
           <SidebarScrollWrapper />
         </SidebarGroup>
-
         <SidebarSpace />
-
         <SidebarDivider />
-
         {/* Settings */}
         <SidebarGroup
           label="Settings"
@@ -148,7 +134,6 @@ export const Root = ({ children }: PropsWithChildren<{}>) => {
           <SidebarSettings />
         </SidebarGroup>
       </Sidebar>
-
       {/* Main content */}
       {children}
     </SidebarPage>
