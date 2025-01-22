@@ -2,12 +2,36 @@ import { createBackendModule } from '@backstage/backend-plugin-api';
 import {
   PolicyDecision,
   AuthorizeResult,
+  isPermission,
 } from '@backstage/plugin-permission-common';
-import { PermissionPolicy } from '@backstage/plugin-permission-node';
+import {
+  catalogConditions,
+  createCatalogConditionalDecision,
+} from '@backstage/plugin-catalog-backend/alpha';
+import {
+  catalogEntityDeletePermission,
+} from '@backstage/plugin-catalog-common/alpha';
+import {
+  PermissionPolicy,
+  PolicyQuery,
+  PolicyQueryUser,
+} from '@backstage/plugin-permission-node';
 import { policyExtensionPoint } from '@backstage/plugin-permission-node/alpha';
 
-class TestPermissionPolicy implements PermissionPolicy {
-  async handle(): Promise<PolicyDecision> {
+
+class CustomPermissionPolicy implements PermissionPolicy {
+  async handle(
+    request: PolicyQuery,
+    user?: PolicyQueryUser,
+  ): Promise<PolicyDecision> {
+    if (isPermission(request.permission, catalogEntityDeletePermission)) {
+      return createCatalogConditionalDecision(
+        request.permission,
+        catalogConditions.isEntityOwner({
+          claims: user?.info.ownershipEntityRefs ?? [],
+        }),
+      );
+    }
     return { result: AuthorizeResult.ALLOW };
   }
 }
@@ -19,7 +43,7 @@ export default createBackendModule({
     reg.registerInit({
       deps: { policy: policyExtensionPoint },
       async init({ policy }) {
-        policy.setPolicy(new TestPermissionPolicy());
+        policy.setPolicy(new CustomPermissionPolicy());
       },
     });
   },
