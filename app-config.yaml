@@ -83,7 +83,8 @@ auth:
         domainHint: ${AUTH_MICROSOFT_TENANT_ID}
         additionalScopes:
           - Mail.Send
-
+          - Directory.Read.All
+          - Group.Read.All
 scaffolder:
   # see https://backstage.io/docs/features/software-templates/configuration for software template options
 
