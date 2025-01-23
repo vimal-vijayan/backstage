@@ -9,6 +9,13 @@ import {
   DEFAULT_NAMESPACE,
 } from '@backstage/catalog-model';
 
+// Define the interface for Microsoft groups at the top level for better type safety
+interface MicrosoftGroup {
+  id: string;
+  displayName: string;
+  '@odata.type'?: string;
+}
+
 const customMicrosoftAuth = createBackendModule({
   pluginId: 'auth',
   moduleId: 'custom-microsoft-auth-provider',
@@ -36,6 +43,9 @@ const customMicrosoftAuth = createBackendModule({
 
               // Access the access token from the session property
               const accessToken = result.session.accessToken;
+              if (!accessToken) {
+                throw new Error('Access token is missing in the session');
+              }
 
               // Get user's Microsoft groups
               const groups = await getMicrosoftGroups(accessToken);
@@ -46,27 +56,29 @@ const customMicrosoftAuth = createBackendModule({
                 name: localPart,
                 namespace: DEFAULT_NAMESPACE,
               });
-              
-              interface MicrosoftGroup {
-                id: string; // Unique group ID
-                displayName: string; // Group name
-                // Add other properties as needed
-              }
 
-              // Create group references
-               const groupRefs = groups.map((group: MicrosoftGroup) =>
+              // Create group references with both ID and display name
+              const groupRefs = groups.map((group: MicrosoftGroup) =>
                 stringifyEntityRef({
                   kind: 'Group',
-                  name: group.id, // Use unique group ID
+                  name: group.id,
                   namespace: DEFAULT_NAMESPACE,
-                }),
+                })
               );
 
-              // Return token with user and group claims
+              // Return token with enhanced claims including both refs and display names
               return ctx.issueToken({
                 claims: {
                   sub: userEntity,
-                  ent: [userEntity, ...groupRefs], // Ownership references
+                  ent: [userEntity, ...groupRefs],
+                  groups: groups.map(group => ({
+                    ref: stringifyEntityRef({
+                      kind: 'Group',
+                      name: group.id,
+                      namespace: DEFAULT_NAMESPACE,
+                    }),
+                    displayName: group.displayName,
+                  })),
                 },
               });
             },
@@ -77,27 +89,45 @@ const customMicrosoftAuth = createBackendModule({
   },
 });
 
-// Helper function to fetch Microsoft groups
-async function getMicrosoftGroups(accessToken: string) {
-  const response = await fetch(
-    'https://graph.microsoft.com/v1.0/me/memberOf?$select=id,displayName',
-    {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
+// Enhanced helper function to fetch and filter Microsoft groups
+async function getMicrosoftGroups(accessToken: string): Promise<MicrosoftGroup[]> {
+  try {
+    const response = await fetch(
+      'https://graph.microsoft.com/v1.0/me/memberOf?$select=id,displayName',
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        },
       },
-    },
-  );
+    );
 
-  if (!response.ok) {
-    throw new Error('Failed to fetch user groups from Microsoft Graph API');
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(
+        `Failed to fetch user groups: ${response.status} ${response.statusText} ${JSON.stringify(errorData)}`,
+      );
+    }
+
+    const data = await response.json();
+
+    // Filter groups to match catalog provider configuration
+    const filteredGroups = data.value
+      .filter((group: MicrosoftGroup) => 
+        // First ensure it's a security group
+        group['@odata.type'] === '#microsoft.graph.group' &&
+        // Then match the catalog provider's filter pattern
+        group.displayName.startsWith('co-idp-launchpad-')
+      );
+
+    // Log filtered groups for debugging
+    console.debug(`Found ${filteredGroups.length} matching groups for user`);
+
+    return filteredGroups;
+  } catch (error) {
+    console.error('Error fetching Microsoft groups:', error);
+    throw error;
   }
-
-  const data = await response.json();
-
-  // Ensure that only security groups or M365 groups are included
-  return data.value.filter(
-    group => group['@odata.type'] === '#microsoft.graph.group',
-  );
 }
 
 export { customMicrosoftAuth };

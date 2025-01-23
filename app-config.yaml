@@ -155,3 +155,6 @@ catalog:
 # see https://backstage.io/docs/permissions/getting-started for more on the permission framework
 permission:
   enabled: true
+
+customMicrosoftAuth:
+  groupPrefix: 'co-idp-launchpad-' # Prefix for groups to be considered as teams
