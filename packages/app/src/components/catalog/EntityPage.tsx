@@ -59,6 +59,13 @@ import {
   isKubernetesAvailable,
 } from '@backstage/plugin-kubernetes';
 
+import {
+  EntityFeedbackResponseContent,
+  EntityLikeDislikeRatingsCard,
+  LikeDislikeButtons,
+} from '@backstage-community/plugin-entity-feedback';
+import { InfoCard } from '@backstage/core-components';
+
 const techdocsContent = (
   <EntityTechdocsContent>
     <TechDocsAddons>
@@ -66,6 +73,8 @@ const techdocsContent = (
     </TechDocsAddons>
   </EntityTechdocsContent>
 );
+
+
 
 const cicdContent = (
   // This is an example of how you can implement your company's logic in entity page.
@@ -131,6 +140,11 @@ const overviewContent = (
     {entityWarningContent}
     <Grid item md={6}>
       <EntityAboutCard variant="gridItem" />
+      <Grid item md={2}>
+        <InfoCard title="Rate this entity">
+          <LikeDislikeButtons />
+        </InfoCard>
+      </Grid>
     </Grid>
     <Grid item md={6} xs={12}>
       <EntityCatalogGraphCard variant="gridItem" height={400} />
@@ -304,6 +318,24 @@ const userPage = (
         </Grid>
         <Grid item xs={12} md={6}>
           <EntityOwnershipCard variant="gridItem" />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <InfoCard
+            title="Rate this entity"
+            variant="gridItem"
+            titleTypographyProps={{ align: 'center' }}
+          >
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: '100%',
+              }}
+            >
+              <LikeDislikeButtons />
+            </div>
+          </InfoCard>
         </Grid>
       </Grid>
     </EntityLayout.Route>
