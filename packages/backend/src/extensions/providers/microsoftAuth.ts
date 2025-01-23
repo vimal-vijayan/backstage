@@ -62,6 +62,8 @@ const customMicrosoftAuth = createBackendModule({
                 stringifyEntityRef({
                   kind: 'Group',
                   name: group.displayName,
+                  // name: group.id,
+                  // Display names might change over time, while IDs remain constant, better to use IDs
                   namespace: DEFAULT_NAMESPACE,
                 })
               );
@@ -74,7 +76,9 @@ const customMicrosoftAuth = createBackendModule({
                   groups: groups.map(group => ({
                     ref: stringifyEntityRef({
                       kind: 'Group',
-                      name: group.id,
+                      name: group.displayName,
+                      // name: group.id,
+                      // Display names might change over time, while IDs remain constant, better to use IDs
                       namespace: DEFAULT_NAMESPACE,
                     }),
                     displayName: group.displayName,
@@ -113,7 +117,7 @@ async function getMicrosoftGroups(accessToken: string): Promise<MicrosoftGroup[]
 
     // Filter groups to match catalog provider configuration
     const filteredGroups = data.value
-      .filter((group: MicrosoftGroup) => 
+      .filter((group: MicrosoftGroup) =>
         // First ensure it's a security group
         group['@odata.type'] === '#microsoft.graph.group' &&
         // Then match the catalog provider's filter pattern
