@@ -29,6 +29,7 @@ backend.add(customMicrosoftAuth)
 
 // catalog plugin
 backend.add(import('@backstage/plugin-catalog-backend'));
+backend.add(import('@backstage/plugin-catalog-backend-module-msgraph'));
 backend.add(
   import('@backstage/plugin-catalog-backend-module-scaffolder-entity-model'),
 );
