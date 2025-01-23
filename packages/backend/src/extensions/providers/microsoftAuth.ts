@@ -61,7 +61,7 @@ const customMicrosoftAuth = createBackendModule({
               const groupRefs = groups.map((group: MicrosoftGroup) =>
                 stringifyEntityRef({
                   kind: 'Group',
-                  name: group.id,
+                  name: group.displayName,
                   namespace: DEFAULT_NAMESPACE,
                 })
               );
