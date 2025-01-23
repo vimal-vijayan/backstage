@@ -24,6 +24,10 @@ class CustomPermissionPolicy implements PermissionPolicy {
     request: PolicyQuery,
     user?: PolicyQueryUser,
   ): Promise<PolicyDecision> {
+
+    // log user info
+    console.log('User info:', user?.info);
+
     if (isPermission(request.permission, catalogEntityDeletePermission)) {
       return createCatalogConditionalDecision(
         request.permission,
