@@ -83,11 +83,13 @@ auth:
         domainHint: ${AUTH_MICROSOFT_TENANT_ID}
         additionalScopes:
           - Mail.Send
-
+          - Directory.Read.All
+          - Group.Read.All
 scaffolder:
   # see https://backstage.io/docs/features/software-templates/configuration for software template options
 
 catalog:
+  orphanStrategy: delete
   providers:
     microsoftGraphOrg:
       ## READMORE: https://backstage.io/docs/integrations/azure/org
@@ -97,14 +99,21 @@ catalog:
         clientSecret: ${AUTH_MICROSOFT_CLIENT_SECRET}
         queryMode: basic
         user:
-          loadPhotos: true
+          loadPhotos: true  # Load user photos from Microsoft Graph
+          fetch:
+            - displayName
+            - mail
+            - id
+            - jobTitle
+            - userPrincipalName
         group: 
-          # search: '"displayName:co-idp-launchpad-dev"'
-          filter: startsWith(displayName, 'co-idp-launchpad-') 
-        userGroupMember:
-          # filter: "displayName eq 'co-idp-launchpad-dev'"
-          # search: '"displayName:co-idp-launchpad-dev"'
           filter: startsWith(displayName, 'co-idp-launchpad-')
+          fetch:
+            - displayName
+            - description
+        userGroupMember:      
+          filter: startsWith(displayName, 'co-idp-launchpad-')
+          includeSubGroups: true
         schedule:
           frequency: PT1M
           timeout: PT10M
@@ -112,7 +121,7 @@ catalog:
     entityFilename: catalog-info.yaml
     pullRequestBranchName: backstage-integration
   rules:
-    - allow: [Component, System, API, Resource, Location]
+    - allow: [Component, System, API, Resource, Location, Template, User, Group, Domain]
   locations:
     # Local example data, file locations are relative to the backend process, typically `packages/backend`
     - type: file
@@ -125,10 +134,10 @@ catalog:
         - allow: [Template]
 
     # Local example organizational data
-    - type: file
-      target: ../../examples/org.yaml
-      rules:
-        - allow: [User, Group]
+    # - type: file
+    #   target: ../../examples/org.yaml
+    #   rules:
+    #     - allow: [User, Group]
 
     ## Uncomment these lines to add more example data
     # - type: url
@@ -140,10 +149,9 @@ catalog:
     #   rules:
     #     - allow: [User, Group]
 
-kubernetes:
+# kubernetes:
   # see https://backstage.io/docs/features/kubernetes/configuration for kubernetes configuration options
 
 # see https://backstage.io/docs/permissions/getting-started for more on the permission framework
 permission:
-  # setting this to `false` will disable permissions
   enabled: true
