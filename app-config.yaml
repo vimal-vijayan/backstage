@@ -158,3 +158,11 @@ permission:
 
 customMicrosoftAuth:
   groupPrefix: 'co-idp-launchpad-' # Prefix for groups to be considered as teams
+
+teams:
+  - id: cloud
+    name: Frontend Development Team
+    groupId: "26e51655-4c2b-46d6-a134-9f83a6c6a018" 
+  - id: identity
+    name: Identity and Access Management
+    groupId: "26e51655-4c2b-46d6-a134-9f83a6c6a018"
