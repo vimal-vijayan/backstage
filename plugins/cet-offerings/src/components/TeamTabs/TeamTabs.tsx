@@ -9,12 +9,13 @@ import {
   HeaderLabel,
   SupportButton,
 } from '@backstage/core-components';
-import { Cloud, Security, Email } from '@material-ui/icons';
+import { Cloud, Security, Email, Storage } from '@material-ui/icons';
 import { TabPanel } from './TabPanel';
 import { CloudTab } from './CloudTab';
 import { IAMTab } from './IAMTab';
 import { useStyles } from './styles';
 import { SendGridTab } from './SendGridTab';
+import { AzureDevopsTab } from './AzureDevopsTab';
 
 
 export const TeamTabs = () => {
@@ -62,8 +63,15 @@ export const TeamTabs = () => {
             icon={<Email className={`tabIcon ${classes.tabIcon}`} />}
             label="SendGrid Services"
             className={classes.emailTab}
-            id="team-services-tab-2" 
+            id="team-services-tab-2"
             aria-controls="team-services-tabpanel-2"
+          />
+          <Tab
+            icon={<Storage className={`tabIcon ${classes.tabIcon  }`} />}
+            label="Azure Devops Services"
+            className={classes.devopsTab}
+            id="team-services-tab-3"
+            aria-controls="team-services-tabpanel-3"
           />
         </Tabs>
 
@@ -75,6 +83,9 @@ export const TeamTabs = () => {
         </TabPanel>
         <TabPanel value={selectedTab} index={2}>
           <SendGridTab />
+        </TabPanel>
+        <TabPanel value={selectedTab} index={3}>
+          <AzureDevopsTab />
         </TabPanel>
       </Content>
     </Page>

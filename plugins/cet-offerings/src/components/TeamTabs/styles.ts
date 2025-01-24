@@ -11,6 +11,8 @@ type StyleClasses = {
   securityTab: string;
   tabIcon: string;
   tabPanel: string;
+  devopsTab: string;
+  devopsIcon: string;
 };
 
 export const useStyles = makeStyles((theme) => ({
@@ -21,6 +23,19 @@ export const useStyles = makeStyles((theme) => ({
     '&:hover .icon': {
       transform: 'scale(1.1)',
     },
+  },
+
+  devopsIcon: {
+    // Using Azure DevOps' signature blue color
+    color: '#0078D4',
+    transition: theme.transitions.create(['transform', 'background-color'], {
+      duration: theme.transitions.duration.shorter,
+    }),
+    // Light blue background that complements the icon
+    backgroundColor: '#E5F1FB',
+    padding: theme.spacing(1),
+    borderRadius: '50%',
+    fontSize: '2.5rem',
   },
 
   emailIcon: {
@@ -60,6 +75,24 @@ export const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
     borderRadius: '50%',
     fontSize: '2.5rem',
+  },
+
+  // Add new Azure DevOps tab style
+  devopsTab: {
+    '& .tabIcon': {
+      color: '#0078D4',
+      backgroundColor: '#E5F1FB',
+      padding: theme.spacing(1),
+      borderRadius: '50%',
+      fontSize: '2.3rem',
+      transition: theme.transitions.create(['transform', 'background-color'], {
+        duration: theme.transitions.duration.shorter,
+      }),
+    },
+    '&:hover .tabIcon': {
+      transform: 'scale(1.1)',
+      backgroundColor: '#CCE4F7',
+    },
   },
 
   // Add the securityIcon style that was missing

@@ -110,3 +110,4 @@ export const IAMTeamComponent = () => {
 };
 
 export const SendGridComponent = () => {};
+export const AzureDevopsComponent = () => {};

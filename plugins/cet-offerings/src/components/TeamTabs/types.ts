@@ -6,5 +6,3 @@ export interface TabPanelProps {
   value: number;
   index: number;
 }
-
-// We can add more shared types here as needed
