@@ -1,1 +1,1 @@
-export { CloudTeamComponent, IAMTeamComponent } from './TeamComponents';
+export { CloudTeamComponent, IAMTeamComponent, SendGridComponent } from './TeamComponents';

@@ -9,11 +9,13 @@ import {
   HeaderLabel,
   SupportButton,
 } from '@backstage/core-components';
-import { Cloud, Security } from '@material-ui/icons';
+import { Cloud, Security, Email } from '@material-ui/icons';
 import { TabPanel } from './TabPanel';
 import { CloudTab } from './CloudTab';
 import { IAMTab } from './IAMTab';
 import { useStyles } from './styles';
+import { SendGridTab } from './SendGridTab';
+
 
 export const TeamTabs = () => {
   const classes = useStyles();
@@ -42,19 +44,26 @@ export const TeamTabs = () => {
           indicatorColor="primary"
           textColor="primary"
         >
-          <Tab 
+          <Tab
             icon={<Cloud className={`tabIcon ${classes.tabIcon}`} />}
             label="Cloud Services"
             className={classes.cloudTab}
             id="team-services-tab-0"
             aria-controls="team-services-tabpanel-0"
           />
-          <Tab 
+          <Tab
             icon={<Security className={`tabIcon ${classes.tabIcon}`} />}
             label="IAM Services"
             className={classes.securityTab}
             id="team-services-tab-1"
             aria-controls="team-services-tabpanel-1"
+          />
+          <Tab
+            icon={<Email className={`tabIcon ${classes.tabIcon}`} />}
+            label="SendGrid Services"
+            className={classes.emailTab}
+            id="team-services-tab-2" 
+            aria-controls="team-services-tabpanel-2"
           />
         </Tabs>
 
@@ -63,6 +72,9 @@ export const TeamTabs = () => {
         </TabPanel>
         <TabPanel value={selectedTab} index={1}>
           <IAMTab />
+        </TabPanel>
+        <TabPanel value={selectedTab} index={2}>
+          <SendGridTab />
         </TabPanel>
       </Content>
     </Page>

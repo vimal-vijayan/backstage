@@ -23,6 +23,34 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
 
+  emailIcon: {
+    color: '#00B336',  // A professional green color for email services
+    transition: theme.transitions.create(['transform', 'background-color'], {
+      duration: theme.transitions.duration.shorter,
+    }),
+    backgroundColor: '#E6F4EA',
+    padding: theme.spacing(1),
+    borderRadius: '50%',
+    fontSize: '2.5rem',
+  },
+
+  emailTab: {
+    '& .tabIcon': {
+      color: '#00B336',
+      backgroundColor: '#E6F4EA',
+      padding: theme.spacing(1),
+      borderRadius: '50%',
+      fontSize: '2.3rem',
+      transition: theme.transitions.create(['transform', 'background-color'], {
+        duration: theme.transitions.duration.shorter,
+      }),
+    },
+    '&:hover .tabIcon': {
+      transform: 'scale(1.1)',
+      backgroundColor: '#CCE9D4',
+    },
+  },
+
   cloudIcon: {
     color: '#2196F3',
     transition: theme.transitions.create(['transform', 'background-color'], {

@@ -29,7 +29,6 @@ export const IAMTab: React.FC<IAMTabProps> = ({
       container 
       spacing={3} 
       direction="column"
-      // Adding semantic meaning to our grid
       role="region"
       aria-label="IAM Team Services Section"
     >
