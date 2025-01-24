@@ -16,7 +16,8 @@ export const CetOfferingsPage = cetOfferingsPlugin.provide(
   createRoutableExtension({
     name: 'CetOfferingsPage',
     component: () =>
-      import('./components/ExampleComponent').then(m => m.ExampleComponent),
+      // import('./components/ExampleComponent').then(m => m.ExampleComponent),
+      import('./components/TeamTabs').then(m => m.TeamTabs),
     mountPoint: rootRouteRef,
   }),
 );

@@ -10,6 +10,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import GroupIcon from '@material-ui/icons/People';
 import CategoryIcon from '@material-ui/icons/Category';
 import LayersIcon from '@material-ui/icons/Layers';
+import ThunderstormTwoToneIcon from '@mui/icons-material/ThunderstormTwoTone';
 
 import { NotificationsSidebarItem } from '@backstage/plugin-notifications';
 
@@ -87,9 +88,9 @@ export const Root = ({ children }: PropsWithChildren<{}>) => {
           <SidebarItem icon={CategoryIcon} to="catalog" text="Catalog" />
           <SidebarItem icon={ExtensionIcon} to="api-docs" text="APIs" />
           <SidebarItem icon={LibraryBooks} to="docs" text="Docs" />
-          {/* Create... before Explore */}
           <SidebarItem icon={CreateComponentIcon} to="create" text="Create..." />
           <SidebarItem icon={LayersIcon} to="explore" text="Explore" />
+          <SidebarItem icon={ThunderstormTwoToneIcon} to="cet-offerings" text="CET" />
           {/* Notifications */}
           <NotificationsSidebarItem />
           {/* Example: My Groups (optional) */}
