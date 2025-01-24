@@ -47,6 +47,7 @@ import { UnifiedThemeProvider} from '@backstage/theme';
 import { HomepageCompositionRoot } from '@backstage/plugin-home';
 import { HomePage } from './components/home/HomePage';
 import { NotificationsPage } from '@backstage/plugin-notifications';
+import { CetOfferingsPage } from '@internal/backstage-plugin-cet-offerings';
 
 const app = createApp({
   apis,
@@ -158,6 +159,7 @@ const routes = (
     <Route path="/settings" element={<UserSettingsPage />} />
     <Route path="/catalog-graph" element={<CatalogGraphPage />} />
     <Route path="/notifications" element={<NotificationsPage />} />
+    <Route path="/cet-offerings" element={<CetOfferingsPage />} />
   </FlatRoutes>
 );
 
