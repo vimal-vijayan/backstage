@@ -108,3 +108,5 @@ export const IAMTeamComponent = () => {
   if (error) return <ResponseErrorPanel error={error} />;
   return <TeamTable users={value || []} teamName="IAM" />;
 };
+
+export const SendGridComponent = () => {};
