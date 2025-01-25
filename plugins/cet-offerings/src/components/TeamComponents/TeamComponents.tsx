@@ -3,9 +3,10 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Table, TableColumn, Progress, ResponseErrorPanel } from '@backstage/core-components';
 import useAsync from 'react-use/lib/useAsync';
-import { configApiRef, useApi } from '@backstage/core-plugin-api';
+import { fetchApiRef, configApiRef, useApi } from '@backstage/core-plugin-api';
 import { Avatar } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
+
 
 const useStyles = makeStyles({
   avatar: {
@@ -65,11 +66,12 @@ const TeamTable = ({ users, teamName }: { users: TeamMember[]; teamName: string 
 
 
 export const CloudTeamComponent = () => {
+  const fetchApi = useApi(fetchApiRef);
   const config = useApi(configApiRef);
   const backendUrl = config.getString('backend.baseUrl');
 
   const { value, loading, error } = useAsync(async () => {
-    const response = await fetch(`${backendUrl}/api/team-members/teams/cloud/members`);
+    const response = await fetchApi.fetch(`${backendUrl}/api/team-members/teams/cloud/members`);
     if (!response.ok) throw new Error('Failed to fetch Cloud team members');
     return response.json();
   }, []);
@@ -81,10 +83,11 @@ export const CloudTeamComponent = () => {
 
 export const IAMTeamComponent = () => {
   const config = useApi(configApiRef);
+  const fetchApi = useApi(fetchApiRef);
   const backendUrl = config.getString('backend.baseUrl');
   
   const { value, loading, error } = useAsync(async () => {
-    const response = await fetch(`${backendUrl}/api/team-members/teams/identity/members`);
+    const response = await fetchApi.fetch(`${backendUrl}/api/team-members/teams/identity/members`);
     if (!response.ok) throw new Error('Failed to fetch IAM team members');
     return response.json();
   }, []);

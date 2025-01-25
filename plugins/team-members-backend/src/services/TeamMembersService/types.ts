@@ -1,4 +1,3 @@
-// src/services/TeamMembersService/types.ts
 export interface TeamConfig {
     id: string;
     name: string;

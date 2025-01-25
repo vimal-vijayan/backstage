@@ -1,4 +1,3 @@
-// src/services/TeamMembersService/createTeamMembersService.ts
 import { Config } from '@backstage/config';
 import { LoggerService } from '@backstage/backend-plugin-api';
 import { Client, ResponseType } from '@microsoft/microsoft-graph-client';
@@ -127,42 +126,42 @@ export class DefaultTeamMembersService implements ITeamMembersService {
 
             const members: TeamMember[] = await Promise.all(
                 response.value.map(async (member: any) => {
-                  let photoUrl: string | undefined;
-          
-                  try {
-                    // Fetch the user's profile photo
-                    const photoResponse = await this.graphClient!
-                        .api(`/users/${member.id}/photo/$value`)
-                        .responseType(ResponseType.ARRAYBUFFER)
-                        .get();
+                    let photoUrl: string | undefined;
 
-                    const buffer = Buffer.from(photoResponse);
-                    const imageBase64 = buffer.toString('base64');
-                    photoUrl = `data:image/jpeg;base64,${imageBase64}`;
-                  } catch (error) {
-                    if (error instanceof Error && 'statusCode' in error) {
-                      if ((error as any).statusCode !== 404) {
-                        this.logger.warn('Failed to fetch user photo from Microsoft Graph API', {
-                          error: error.message,
-                          userId: member.id,
-                        });
-                      }
-                    } else {
-                        this.logger.error('An unexpected error occurred while fetching photo for user')
+                    try {
+                        // Fetch the user's profile photo
+                        const photoResponse = await this.graphClient!
+                            .api(`/users/${member.id}/photo/$value`)
+                            .responseType(ResponseType.ARRAYBUFFER)
+                            .get();
+
+                        const buffer = Buffer.from(photoResponse);
+                        const imageBase64 = buffer.toString('base64');
+                        photoUrl = `data:image/jpeg;base64,${imageBase64}`;
+                    } catch (error) {
+                        if (error instanceof Error && 'statusCode' in error) {
+                            if ((error as any).statusCode !== 404) {
+                                this.logger.warn('Failed to fetch user photo from Microsoft Graph API', {
+                                    error: error.message,
+                                    userId: member.id,
+                                });
+                            }
+                        } else {
+                            this.logger.error('An unexpected error occurred while fetching photo for user')
+                        }
+                        photoUrl = undefined; // No photo available
                     }
-                    photoUrl = undefined; // No photo available
-                  }
-          
-                  return {
-                    id: member.id,
-                    displayName: member.displayName,
-                    email: member.mail,
-                    jobTitle: member.jobTitle,
-                    offerings: teamConfig.offerings,
-                    photoUrl, // Include the photo URL
-                  };
+
+                    return {
+                        id: member.id,
+                        displayName: member.displayName,
+                        email: member.mail,
+                        jobTitle: member.jobTitle,
+                        offerings: teamConfig.offerings,
+                        photoUrl, // Include the photo URL
+                    };
                 })
-              );
+            );
 
             this.logger.info('Successfully fetched team members:', {
                 teamId,
@@ -175,18 +174,19 @@ export class DefaultTeamMembersService implements ITeamMembersService {
             });
 
             this.logger.info(`Attempting to fetch members for team: ${teamId}`);
+            console.log("Fetching members for team: ", teamId);
 
             // Create a more readable console output for the members
             // FIXME: only for debugging purposes
-            console.log('\n=== Team Members Retrieved ===');
-            console.log(`Team: ${teamConfig.name} (${teamId})`);
-            console.log('Members:');
-            members.forEach(member => {
-                console.log(`- ${member.displayName} (${member.jobTitle || 'No role specified'})`);
-                console.log(`  Email: ${member.email}`);
-                console.log(`  Role: ${member.jobTitle}`)
-            });
-            console.log('============================\n');
+            // console.log('\n=== Team Members Retrieved ===');
+            // console.log(`Team: ${teamConfig.name} (${teamId})`);
+            // console.log('Members:');
+            // members.forEach(member => {
+            //     console.log(`- ${member.displayName} (${member.jobTitle || 'No role specified'})`);
+            //     console.log(`  Email: ${member.email}`);
+            //     console.log(`  Role: ${member.jobTitle}`)
+            // });
+            // console.log('============================\n');
 
             this.cache.set(cacheKey, {
                 data: members,
@@ -195,6 +195,7 @@ export class DefaultTeamMembersService implements ITeamMembersService {
 
             return members;
         } catch (error) {
+            console.log("Error fetching members for team: ", teamId);
             this.logger.error('Failed to fetch team members from Microsoft Graph API', {
                 error: error instanceof Error ? error.message : String(error),
                 teamId,

@@ -32,16 +32,6 @@ export const teamMembersPlugin = createBackendPlugin({
         });
 
         httpRouter.use(router);
-
-        // FIXME:  Allow unauthenticated requests to the health endpoint, Remove this in production
-        httpRouter.addAuthPolicy({
-          path: '/teams/cloud/members',
-          allow: 'unauthenticated'
-        })
-        httpRouter.addAuthPolicy({
-          path: '/teams/identity/members',
-          allow: 'unauthenticated',
-        })
       },
     });
   },
