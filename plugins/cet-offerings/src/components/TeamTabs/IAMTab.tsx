@@ -3,6 +3,8 @@ import { Typography, Grid } from '@material-ui/core';
 import { InfoCard } from '@backstage/core-components';
 import { Security } from '@material-ui/icons';
 import { IAMTeamComponent } from '../TeamComponents';
+// Component with pagination
+// import { IAMTeamComponent } from '../TeamComponents/TeamComponentsWithPagination';
 import { useStyles } from './styles';
 import { HomePageToolkit } from '@backstage/plugin-home';
 import DescriptionIcon from '@material-ui/icons/Description';
