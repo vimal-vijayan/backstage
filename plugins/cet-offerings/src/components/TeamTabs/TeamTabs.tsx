@@ -1,4 +1,3 @@
-// src/components/TeamTabs/TeamTabs.tsx
 import React, { useState } from 'react';
 import { Tabs, Tab } from '@material-ui/core';
 import {
@@ -16,6 +15,7 @@ import { IAMTab } from './IAMTab';
 import { useStyles } from './styles';
 import { SendGridTab } from './SendGridTab';
 import { AzureDevopsTab } from './AzureDevopsTab';
+import devopsLogo from '../../assets/azure-devops-logo.svg';
 
 
 export const TeamTabs = () => {
@@ -61,14 +61,15 @@ export const TeamTabs = () => {
           />
           <Tab
             icon={<Email className={`tabIcon ${classes.tabIcon}`} />}
-            label="SendGrid Services"
+            label="SendGrid"
             className={classes.emailTab}
             id="team-services-tab-2"
             aria-controls="team-services-tabpanel-2"
           />
           <Tab
-            icon={<Storage className={`tabIcon ${classes.tabIcon  }`} />}
-            label="Azure Devops Services"
+            // icon={<Storage className={`tabIcon ${classes.tabIcon  }`} />}
+            icon={<img src={devopsLogo} alt='Azure DevOps Logo' className={classes.devopsLogo} />}
+            label="Azure Devops"
             className={classes.devopsTab}
             id="team-services-tab-3"
             aria-controls="team-services-tabpanel-3"

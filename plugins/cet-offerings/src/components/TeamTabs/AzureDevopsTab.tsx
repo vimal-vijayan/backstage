@@ -1,8 +1,9 @@
 import React from 'react';
 import { Typography, Grid } from '@material-ui/core';
 import { InfoCard } from '@backstage/core-components';
-import { Storage } from '@material-ui/icons'; // We'll use Storage icon as it's similar to Azure DevOps logo
+// import { Storage } from '@material-ui/icons';
 import { useStyles } from './styles';
+import devopsLogo from '../../assets/azure-devops-logo.svg';
 
 interface AzureDevopsTabProps {
   title?: string;
@@ -10,7 +11,7 @@ interface AzureDevopsTabProps {
 }
 
 export const AzureDevopsTab: React.FC<AzureDevopsTabProps> = ({
-  title = 'Azure DevOps Services', // Updated to proper capitalization
+  title = 'Azure DevOps Services',
   description = 'Our Azure DevOps team provides continuous integration, continuous deployment, and version control services.',
 }) => {
   const classes = useStyles();
@@ -26,12 +27,13 @@ export const AzureDevopsTab: React.FC<AzureDevopsTabProps> = ({
       <Grid item>
         <InfoCard
           title={
-            <div className={classes.cardHeader}>
-              <Storage 
-                // Changed from emailIcon to devopsIcon for proper styling
+            <div className={classes.cardHeader}
+              style={{ display: 'flex', alignItems: 'center' }}>
+              {/* <Storage 
                 className={`${classes.devopsIcon} icon`}
                 aria-hidden="true"
-              />
+              /> */}
+              <img src={devopsLogo} alt='Azure DevOps Logo' className={classes.devopsLogo} sizes='1'/>
               <Typography variant="h6">{title}</Typography>
             </div>
           }

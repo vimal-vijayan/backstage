@@ -1,4 +1,3 @@
-// src/components/TeamComponents/TeamComponents.tsx
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Table, TableColumn, Progress, ResponseErrorPanel } from '@backstage/core-components';
@@ -33,12 +32,6 @@ const TeamTable = ({ users, teamName }: { users: TeamMember[]; teamName: string 
       title: 'Avatar',
       field: 'photoUrl',
       width: 'auto',
-      // render: (rowData: Partial<TeamMember>) =>
-      //   rowData.photoUrl ? (
-      //     <img src={rowData.photoUrl} alt={rowData.displayName} className={classes.avatar} />
-      //   ) : (
-      //     <div className={classes.avatar} style={{ backgroundColor: '#ccc' }} />
-      //   ),
       render: (rowData: Partial<TeamMember>) => (
         <Avatar
           src={rowData.photoUrl || undefined}

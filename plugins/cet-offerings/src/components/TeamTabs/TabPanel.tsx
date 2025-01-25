@@ -1,4 +1,3 @@
-// src/components/TeamTabs/TabPanel.tsx
 import React from 'react';
 import { TabPanelProps } from './types';
 

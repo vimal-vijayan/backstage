@@ -1,11 +1,9 @@
-// src/components/TeamTabs/styles.ts
 import { makeStyles } from '@material-ui/core';
 
-// Define a type for our style classes to ensure type safety
 type StyleClasses = {
   cardHeader: string;
   cloudIcon: string;
-  securityIcon: string;  // Add this to the type
+  securityIcon: string;
   tabs: string;
   cloudTab: string;
   securityTab: string;
@@ -25,21 +23,66 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
 
+  quickLinkIcon: {
+    fontSize: '1.5rem',
+    transition: theme.transitions.create(['transform', 'color'], {
+      duration: theme.transitions.duration.shorter,
+    }),
+    '&:hover': {
+      transform: 'scale(1.3)',
+    },
+  },
+
+  docsIcon: {
+    color: '#FF9800',
+    '&:hover': {
+      color: '#F57C00',
+    },
+    borderRadius: '30%',
+  },
+
+  wikiIcon: {
+    color: '#4CAF50',
+    '&:hover': {
+      color: '#388E3C',
+    },
+  },
+
+
   devopsIcon: {
     // Using Azure DevOps' signature blue color
     color: '#0078D4',
     transition: theme.transitions.create(['transform', 'background-color'], {
       duration: theme.transitions.duration.shorter,
     }),
-    // Light blue background that complements the icon
+    
     backgroundColor: '#E5F1FB',
     padding: theme.spacing(1),
     borderRadius: '50%',
     fontSize: '2.5rem',
   },
 
+  devopsLogo: {
+    width: '37px',
+    height: '37px',
+    objectFit: 'contain',
+    transition: theme.transitions.create(['transform', 'background-color'], {
+      duration: theme.transitions.duration.shorter,
+    }),
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#E5F1FB',
+    borderRadius: '50%',
+    padding:theme.spacing(1), //'6px',
+    '&:hover': {
+      transform: 'scale(1.1)',
+      backgroundColor: '#BBDEFB',
+    },
+  },
+
   emailIcon: {
-    color: '#00B336',  // A professional green color for email services
+    color: '#00B336',  
     transition: theme.transitions.create(['transform', 'background-color'], {
       duration: theme.transitions.duration.shorter,
     }),
@@ -77,7 +120,6 @@ export const useStyles = makeStyles((theme) => ({
     fontSize: '2.5rem',
   },
 
-  // Add new Azure DevOps tab style
   devopsTab: {
     '& .tabIcon': {
       color: '#0078D4',
@@ -95,7 +137,6 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
 
-  // Add the securityIcon style that was missing
   securityIcon: {
     color: '#673AB7',
     transition: theme.transitions.create(['transform', 'background-color'], {
@@ -107,7 +148,7 @@ export const useStyles = makeStyles((theme) => ({
     fontSize: '2.5rem',
   },
 
-  // Rest of your styles...
+  
   tabs: {
     marginBottom: theme.spacing(2),
     '& .MuiTab-root': {

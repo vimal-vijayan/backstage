@@ -23,7 +23,7 @@ export const CloudTab: React.FC<CloudTabProps> = ({
   return (
     <Grid
       container
-      spacing={3}
+      spacing={5}
       direction="column"
       role="region"
       aria-label="Cloud Services Section"
@@ -40,24 +40,24 @@ export const CloudTab: React.FC<CloudTabProps> = ({
         >
           <div>
             <Typography variant="body1">{description}</Typography>
-            <div style={{ marginTop: '16px' }}>
+            <div style={{ marginTop: '10px' }}>
               <HomePageToolkit
                 title="Quick Links"
                 tools={[
                   {
                     url: 'https://backstage.io/docs',
-                    label: 'Backstage Docs',
-                    icon: <DescriptionIcon />,
+                    label: 'Sharepoint',
+                    icon: <DescriptionIcon className={`${classes.quickLinkIcon} ${classes.docsIcon}`} />,
                   },
                   {
                     url: 'https://my-internal-wiki.company.com',
-                    label: 'Internal Wiki',
-                    icon: <WikiIcon />,
+                    label: 'Wiki',
+                    icon: <WikiIcon className={`${classes.quickLinkIcon} ${classes.wikiIcon}`} />,
                   },
                   {
                     url: 'https://cloud.company.com',
-                    label: 'Cloud Dashboard',
-                    icon: <CloudIcon />,
+                    label: 'Cloud Board',
+                    icon: <CloudIcon className={`${classes.quickLinkIcon} ${classes.cloudIcon} `}/>,
                   },
                 ]}
               />
