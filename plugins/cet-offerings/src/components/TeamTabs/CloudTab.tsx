@@ -45,17 +45,17 @@ export const CloudTab: React.FC<CloudTabProps> = ({
                 title="Quick Links"
                 tools={[
                   {
-                    url: 'https://backstage.io/docs',
+                    url: 'https://sca.sharepoint.com/sites/GRP-IT-Infrastructure/SitePages/Requesting-Work-From-Infrastructure-Services.aspx',
                     label: 'Sharepoint',
                     icon: <DescriptionIcon className={`${classes.quickLinkIcon} ${classes.docsIcon}`} />,
                   },
                   {
-                    url: 'https://my-internal-wiki.company.com',
+                    url: 'https://dev.azure.com/essity-projects/Essity%20Infrastructure%20Services/_wiki/wikis/CET-Wiki/4462/Cloud-Team-Wiki',
                     label: 'Wiki',
                     icon: <WikiIcon className={`${classes.quickLinkIcon} ${classes.wikiIcon}`} />,
                   },
                   {
-                    url: 'https://cloud.company.com',
+                    url: 'https://dev.azure.com/essity-projects/Essity%20Infrastructure%20Services/_boards/board/t/Cloud%20Enablement%20Team%20-%20Requestors/Stories',
                     label: 'Cloud Board',
                     icon: <CloudIcon className={`${classes.quickLinkIcon} ${classes.cloudIcon} `}/>,
                   },

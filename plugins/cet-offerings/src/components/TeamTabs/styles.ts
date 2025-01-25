@@ -39,6 +39,9 @@ export const useStyles = makeStyles((theme) => ({
       color: '#F57C00',
     },
     borderRadius: '30%',
+    backgroundColor: '#FFF3E0',
+    padding: theme.spacing(1),
+    fontSize: '2.5rem',
   },
 
   wikiIcon: {
@@ -46,11 +49,13 @@ export const useStyles = makeStyles((theme) => ({
     '&:hover': {
       color: '#388E3C',
     },
+    borderRadius: '30%',
+    backgroundColor: '#E8F5E9',
+    padding: theme.spacing(1),
+    fontSize: '2.5rem',
   },
 
-
   devopsIcon: {
-    // Using Azure DevOps' signature blue color
     color: '#0078D4',
     transition: theme.transitions.create(['transform', 'background-color'], {
       duration: theme.transitions.duration.shorter,

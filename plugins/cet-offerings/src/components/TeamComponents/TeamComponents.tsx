@@ -10,8 +10,14 @@ import PersonIcon from '@mui/icons-material/Person';
 const useStyles = makeStyles({
   avatar: {
     height: 32,
+    color: '#4040e9',
     width: 32,
     borderRadius: '50%',
+    transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
+    '&:hover': {
+      transform: 'scale(1.8)',
+      boxShadow: '0 4px 10px 0 rgba(14, 182, 233, 0.2)',
+    },
   },
 });
 
@@ -78,7 +84,7 @@ export const IAMTeamComponent = () => {
   const config = useApi(configApiRef);
   const fetchApi = useApi(fetchApiRef);
   const backendUrl = config.getString('backend.baseUrl');
-  
+
   const { value, loading, error } = useAsync(async () => {
     const response = await fetchApi.fetch(`${backendUrl}/api/team-members/teams/identity/members`);
     if (!response.ok) throw new Error('Failed to fetch IAM team members');
@@ -90,5 +96,5 @@ export const IAMTeamComponent = () => {
   return <TeamTable users={value || []} teamName="IAM" />;
 };
 
-export const SendGridComponent = () => {};
-export const AzureDevopsComponent = () => {};
+export const SendGridComponent = () => { };
+export const AzureDevopsComponent = () => { };
