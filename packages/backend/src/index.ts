@@ -61,4 +61,8 @@ backend.add(import('@backstage/plugin-search-backend-module-techdocs'));
 // kubernetes
 backend.add(import('@backstage/plugin-kubernetes-backend'));
 
+// backend.add(import('@internal/backstage-plugin-team-members-backend'));
+import teamMembersPlugin from '@internal/backstage-plugin-team-members-backend';
+backend.add(teamMembersPlugin);
+
 backend.start();

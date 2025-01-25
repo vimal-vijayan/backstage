@@ -3,6 +3,10 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Table, TableColumn, Progress, ResponseErrorPanel } from '@backstage/core-components';
 import useAsync from 'react-use/lib/useAsync';
+import { fetchApiRef, configApiRef, useApi } from '@backstage/core-plugin-api';
+import { Avatar } from '@mui/material';
+import PersonIcon from '@mui/icons-material/Person';
+
 
 const useStyles = makeStyles({
   avatar: {
@@ -12,85 +16,64 @@ const useStyles = makeStyles({
   },
 });
 
-// Define the user type
-type User = {
-  gender: string;
-  name: {
-    title: string;
-    first: string;
-    last: string;
-  };
+type TeamMember = {
+  id: string;
+  displayName: string;
   email: string;
-  picture: string;
-  nat: string;
-  team: 'Cloud' | 'IAM';
-  role: string;
+  jobTitle: string;
+  photoUrl: string;
 };
 
-// Sample team data
-const teamMembers: User[] = [
-  {
-    gender: 'male',
-    name: {
-      title: 'Mr',
-      first: 'John',
-      last: 'Smith',
-    },
-    email: 'john.smith@example.com',
-    picture: 'https://api.dicebear.com/6.x/open-peeps/svg?seed=John',
-    nat: 'US',
-    team: 'Cloud',
-    role: 'Cloud Architect'
-  },
-  {
-    gender: 'female',
-    name: {
-      title: 'Ms',
-      first: 'Alice',
-      last: 'Johnson',
-    },
-    email: 'alice.johnson@example.com',
-    picture: 'https://api.dicebear.com/6.x/open-peeps/svg?seed=Alice',
-    nat: 'UK',
-    team: 'IAM',
-    role: 'Identity Manager'
-  },
-  // Add more team members as needed
-];
 
-const TeamTable = ({ users, teamName }: { users: User[], teamName: string }) => {
+const TeamTable = ({ users, teamName }: { users: TeamMember[]; teamName: string }) => {
   const classes = useStyles();
 
   const columns: TableColumn[] = [
-    { title: 'Avatar', field: 'avatar' },
-    { title: 'Name', field: 'name' },
-    { title: 'Role', field: 'role' },
+    {
+      title: 'Avatar',
+      field: 'photoUrl',
+      width: 'auto',
+      // render: (rowData: Partial<TeamMember>) =>
+      //   rowData.photoUrl ? (
+      //     <img src={rowData.photoUrl} alt={rowData.displayName} className={classes.avatar} />
+      //   ) : (
+      //     <div className={classes.avatar} style={{ backgroundColor: '#ccc' }} />
+      //   ),
+      render: (rowData: Partial<TeamMember>) => (
+        <Avatar
+          src={rowData.photoUrl || undefined}
+          alt={rowData.displayName}
+          className={classes.avatar}
+        >
+          {!rowData.photoUrl && <PersonIcon />}
+        </Avatar>
+      ),
+    },
+    { title: 'Name', field: 'displayName' },
+    { title: 'Role', field: 'jobTitle' },
     { title: 'Email', field: 'email' },
-    { title: 'Location', field: 'nationality' },
   ];
-
-  const data = users.map(user => ({
-    avatar: <img src={user.picture} className={classes.avatar} alt={user.name.first} />,
-    name: `${user.name.first} ${user.name.last}`,
-    role: user.role,
-    email: user.email,
-    nationality: user.nat,
-  }));
 
   return (
     <Table
       title={`${teamName} Team Members`}
       options={{ search: true, paging: false }}
       columns={columns}
-      data={data}
+      data={users}
     />
   );
 };
 
+
 export const CloudTeamComponent = () => {
-  const { value, loading, error } = useAsync(async (): Promise<User[]> => {
-    // In a real app, this would be an API call
-    return teamMembers.filter(user => user.team === 'Cloud');
+  const fetchApi = useApi(fetchApiRef);
+  const config = useApi(configApiRef);
+  const backendUrl = config.getString('backend.baseUrl');
+
+  const { value, loading, error } = useAsync(async () => {
+    const response = await fetchApi.fetch(`${backendUrl}/api/team-members/teams/cloud/members`);
+    if (!response.ok) throw new Error('Failed to fetch Cloud team members');
+    return response.json();
   }, []);
 
   if (loading) return <Progress />;
@@ -99,9 +82,14 @@ export const CloudTeamComponent = () => {
 };
 
 export const IAMTeamComponent = () => {
-  const { value, loading, error } = useAsync(async (): Promise<User[]> => {
-    // In a real app, this would be an API call
-    return teamMembers.filter(user => user.team === 'IAM');
+  const config = useApi(configApiRef);
+  const fetchApi = useApi(fetchApiRef);
+  const backendUrl = config.getString('backend.baseUrl');
+  
+  const { value, loading, error } = useAsync(async () => {
+    const response = await fetchApi.fetch(`${backendUrl}/api/team-members/teams/identity/members`);
+    if (!response.ok) throw new Error('Failed to fetch IAM team members');
+    return response.json();
   }, []);
 
   if (loading) return <Progress />;
