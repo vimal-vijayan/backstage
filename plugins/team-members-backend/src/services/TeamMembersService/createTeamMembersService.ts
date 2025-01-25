@@ -54,8 +54,8 @@ export class DefaultTeamMembersService implements ITeamMembersService {
                 const authProvider = new TokenCredentialAuthenticationProvider(credential, {
                     scopes: ['https://graph.microsoft.com/.default'],
                 });
-                
-                this.graphClient = Client.initWithMiddleware({authProvider});
+
+                this.graphClient = Client.initWithMiddleware({ authProvider });
 
                 this.logger.info('Microsoft Graph client initialized successfully');
             } else {
@@ -146,12 +146,14 @@ export class DefaultTeamMembersService implements ITeamMembersService {
             this.logger.info(`Attempting to fetch members for team: ${teamId}`);
 
             // Create a more readable console output for the members
+            // FIXME: only for debugging purposes
             console.log('\n=== Team Members Retrieved ===');
             console.log(`Team: ${teamConfig.name} (${teamId})`);
             console.log('Members:');
             members.forEach(member => {
                 console.log(`- ${member.displayName} (${member.jobTitle || 'No role specified'})`);
                 console.log(`  Email: ${member.email}`);
+                console.log(`  Role: ${member.jobTitle}`)
             });
             console.log('============================\n');
 

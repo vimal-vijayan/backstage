@@ -37,6 +37,10 @@ export const teamMembersPlugin = createBackendPlugin({
           path: '/teams/cloud/members',
           allow: 'unauthenticated',
         })
+        httpRouter.addAuthPolicy({
+          path: '/teams/identity/members',
+          allow: 'unauthenticated',
+        })
       },
     });
   },
