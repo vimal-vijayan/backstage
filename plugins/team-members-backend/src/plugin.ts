@@ -21,16 +21,22 @@ export const teamMembersPlugin = createBackendPlugin({
         logger: coreServices.logger,
         httpRouter: coreServices.httpRouter,
         config: coreServices.rootConfig,
+        auth: coreServices.auth,
+        httpAuth: coreServices.httpAuth,
       },
       async init({ logger, config, httpRouter }) {
         const teamMembersService = createTeamMembersService(config, logger);
-
         const router = await createRouter({
           logger,
           teamMembersService,
         });
-
         httpRouter.use(router);
+
+        //FIXME:  Allow unauthenticated requests to the health endpoint, Remove this in production
+        httpRouter.addAuthPolicy({
+          path: '/teams/cloud/members',
+          allow: 'unauthenticated',
+        })
       },
     });
   },

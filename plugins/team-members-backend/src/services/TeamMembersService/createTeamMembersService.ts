@@ -54,8 +54,9 @@ export class DefaultTeamMembersService implements ITeamMembersService {
                 const authProvider = new TokenCredentialAuthenticationProvider(credential, {
                     scopes: ['https://graph.microsoft.com/.default'],
                 });
+                
+                this.graphClient = Client.initWithMiddleware({authProvider});
 
-                this.graphClient = Client.initWithMiddleware({ authProvider });
                 this.logger.info('Microsoft Graph client initialized successfully');
             } else {
                 this.logger.warn(
@@ -84,6 +85,12 @@ export class DefaultTeamMembersService implements ITeamMembersService {
 
     async getTeamMembers(teamId: string): Promise<TeamMember[]> {
         const teamConfig = this.teamConfigs.find(t => t.id === teamId);
+
+        this.logger.info('Starting getTeamMembers request', {
+            requestedTeamId: teamId,
+            availableTeamIds: this.teamConfigs.map(t => t.id)
+        });
+
         if (!teamConfig) {
             this.logger.warn(`Team ${teamId} not found in configuration`);
             return [];
