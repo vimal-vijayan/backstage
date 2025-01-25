@@ -161,8 +161,8 @@ customMicrosoftAuth:
 
 teams:
   - id: cloud
-    name: Frontend Development Team
-    groupId: "26e51655-4c2b-46d6-a134-9f83a6c6a018" 
+    name: Cloud Team
+    groupId: "99f5611a-2840-43d7-9a03-5b30cafe4d41" # Azure AD Group ID : co-idp-cet-cloud-team-members  
   - id: identity
     name: Identity and Access Management
-    groupId: "26e51655-4c2b-46d6-a134-9f83a6c6a018"
+    groupId: "28a8984d-d0e6-4cb0-bada-c70c3da23e4a" # Azure AD Group ID : co-idp-cet-iam-team-members
