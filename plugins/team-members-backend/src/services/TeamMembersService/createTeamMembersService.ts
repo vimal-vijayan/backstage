@@ -1,7 +1,7 @@
 // src/services/TeamMembersService/createTeamMembersService.ts
 import { Config } from '@backstage/config';
 import { LoggerService } from '@backstage/backend-plugin-api';
-import { Client } from '@microsoft/microsoft-graph-client';
+import { Client, ResponseType } from '@microsoft/microsoft-graph-client';
 import { TokenCredentialAuthenticationProvider } from '@microsoft/microsoft-graph-client/authProviders/azureTokenCredentials';
 import { ClientSecretCredential } from '@azure/identity';
 import { TeamConfig, TeamMember, ITeamMembersService } from './types';
@@ -125,13 +125,44 @@ export class DefaultTeamMembersService implements ITeamMembersService {
                 .select('id,displayName,mail,jobTitle')
                 .get();
 
-            const members: TeamMember[] = response.value.map((member: any) => ({
-                id: member.id,
-                displayName: member.displayName,
-                email: member.mail,
-                jobTitle: member.jobTitle,
-                offerings: teamConfig.offerings,
-            }));
+            const members: TeamMember[] = await Promise.all(
+                response.value.map(async (member: any) => {
+                  let photoUrl: string | undefined;
+          
+                  try {
+                    // Fetch the user's profile photo
+                    const photoResponse = await this.graphClient!
+                        .api(`/users/${member.id}/photo/$value`)
+                        .responseType(ResponseType.ARRAYBUFFER)
+                        .get();
+
+                    const buffer = Buffer.from(photoResponse);
+                    const imageBase64 = buffer.toString('base64');
+                    photoUrl = `data:image/jpeg;base64,${imageBase64}`;
+                  } catch (error) {
+                    if (error instanceof Error && 'statusCode' in error) {
+                      if ((error as any).statusCode !== 404) {
+                        this.logger.warn('Failed to fetch user photo from Microsoft Graph API', {
+                          error: error.message,
+                          userId: member.id,
+                        });
+                      }
+                    } else {
+                        this.logger.error('An unexpected error occurred while fetching photo for user')
+                    }
+                    photoUrl = undefined; // No photo available
+                  }
+          
+                  return {
+                    id: member.id,
+                    displayName: member.displayName,
+                    email: member.mail,
+                    jobTitle: member.jobTitle,
+                    offerings: teamConfig.offerings,
+                    photoUrl, // Include the photo URL
+                  };
+                })
+              );
 
             this.logger.info('Successfully fetched team members:', {
                 teamId,

@@ -12,6 +12,7 @@ export interface TeamConfig {
     email: string;
     jobTitle: string;
     offerings: string[];
+    photoUrl?: string;
   }
   
   export interface ITeamMembersService {

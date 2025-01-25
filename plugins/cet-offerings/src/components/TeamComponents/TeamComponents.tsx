@@ -4,6 +4,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Table, TableColumn, Progress, ResponseErrorPanel } from '@backstage/core-components';
 import useAsync from 'react-use/lib/useAsync';
 import { configApiRef, useApi } from '@backstage/core-plugin-api';
+import { Avatar } from '@mui/material';
+import PersonIcon from '@mui/icons-material/Person';
 
 const useStyles = makeStyles({
   avatar: {
@@ -18,6 +20,7 @@ type TeamMember = {
   displayName: string;
   email: string;
   jobTitle: string;
+  photoUrl: string;
 };
 
 
@@ -25,6 +28,26 @@ const TeamTable = ({ users, teamName }: { users: TeamMember[]; teamName: string 
   const classes = useStyles();
 
   const columns: TableColumn[] = [
+    {
+      title: 'Avatar',
+      field: 'photoUrl',
+      width: 'auto',
+      // render: (rowData: Partial<TeamMember>) =>
+      //   rowData.photoUrl ? (
+      //     <img src={rowData.photoUrl} alt={rowData.displayName} className={classes.avatar} />
+      //   ) : (
+      //     <div className={classes.avatar} style={{ backgroundColor: '#ccc' }} />
+      //   ),
+      render: (rowData: Partial<TeamMember>) => (
+        <Avatar
+          src={rowData.photoUrl || undefined}
+          alt={rowData.displayName}
+          className={classes.avatar}
+        >
+          {!rowData.photoUrl && <PersonIcon />}
+        </Avatar>
+      ),
+    },
     { title: 'Name', field: 'displayName' },
     { title: 'Role', field: 'jobTitle' },
     { title: 'Email', field: 'email' },
