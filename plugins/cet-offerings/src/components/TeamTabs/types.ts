@@ -1,4 +1,3 @@
-// src/components/TeamTabs/types.ts
 import { ReactNode } from 'react';
 
 export interface TabPanelProps {

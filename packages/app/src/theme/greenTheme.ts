@@ -48,6 +48,9 @@ import {
           selectedColor: '#66BB6A',  // Light green for selected items
           hoverBackground: '#388E3C', // Green background for hover effect
           hoverColor: '#FFFFFF',   // White text for hover effect
+          submenu: {
+            background: '#388E3C',  // Green background for submenus
+          },
         },
       },
       typography: {

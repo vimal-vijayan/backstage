@@ -50,6 +50,9 @@ import {
           selectedColor: '#DABF9C',
           hoverBackground: '#3A322A',
           hoverColor: '#DABF9C',
+          submenu: {
+            background: '#3A322A',
+          },
         },
       },
       typography: {

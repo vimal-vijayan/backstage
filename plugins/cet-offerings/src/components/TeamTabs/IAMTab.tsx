@@ -1,18 +1,18 @@
-// src/components/TeamTabs/IAMTab.tsx
 import React from 'react';
 import { Typography, Grid } from '@material-ui/core';
 import { InfoCard } from '@backstage/core-components';
 import { Security } from '@material-ui/icons';
 import { IAMTeamComponent } from '../TeamComponents';
+// Component with pagination
+// import { IAMTeamComponent } from '../TeamComponents/TeamComponentsWithPagination';
 import { useStyles } from './styles';
+import { HomePageToolkit } from '@backstage/plugin-home';
+import DescriptionIcon from '@material-ui/icons/Description';
+import WikiIcon from '@material-ui/icons/MenuBook';
 
-// Define an interface for the component's props
 interface IAMTabProps {
-  // Adding title and description as props makes the component more reusable
   title?: string;
   description?: string;
-  // You might want to add more props in the future, like:
-  // onServiceClick?: (service: string) => void;
   // isLoading?: boolean;
 }
 
@@ -24,7 +24,6 @@ export const IAMTab: React.FC<IAMTabProps> = ({
   const classes = useStyles();
 
   return (
-    // Remove the tabPanel class as that's a concern of the parent TabPanel component
     <Grid 
       container 
       spacing={3} 
@@ -36,20 +35,37 @@ export const IAMTab: React.FC<IAMTabProps> = ({
         <InfoCard
           title={
             <div className={classes.cardHeader}>
-              <Security 
-                className={`${classes.securityIcon} icon`}
-                // Adding aria-hidden since this is decorative
-                aria-hidden="true"
-              />
+              <Security className={`${classes.securityIcon} icon`} aria-hidden="true" />
               <Typography variant="h6">{title}</Typography>
             </div>
           }
-          // Adding better accessibility
           aria-label={`${title} Information Card`}
         >
-          <Typography variant="body1">
-            {description}
-          </Typography>
+          <div>
+            <Typography variant="body1"> {description}</Typography>
+            <div style={{ marginTop: '10px' }}>
+              <HomePageToolkit
+                title="Quick Links"
+                tools={[
+                  {
+                    url: 'https://sca.sharepoint.com/sites/GRP-IT-Infrastructure/SitePages/Identity-Management.aspx',
+                    label: 'Sharepoint',
+                    icon: <DescriptionIcon className={`${classes.quickLinkIcon} ${classes.docsIcon}`} />,
+                  },
+                  {
+                    url: 'https://dev.azure.com/essity-projects/Essity%20Infrastructure%20Services/_wiki/wikis/CET-Wiki/4462/Cloud-Team-Wiki',
+                    label: 'Wiki',
+                    icon: <WikiIcon className={`${classes.quickLinkIcon} ${classes.wikiIcon}`} />,
+                  },
+                  {
+                    url: 'https://dev.azure.com/essity-projects/Essity%20Infrastructure%20Services/_boards/board/t/Cloud%20Enablement%20Team%20-%20Requestors/Stories',
+                    label: 'IAM Board',
+                    icon: <Security className={`${classes.quickLinkIcon} ${classes.securityIcon} `}/>,
+                  },
+                ]}
+              />
+            </div>
+          </div>
         </InfoCard>
       </Grid>
       <Grid item>
@@ -59,5 +75,4 @@ export const IAMTab: React.FC<IAMTabProps> = ({
   );
 };
 
-// Adding prop type validation for development
 IAMTab.displayName = 'IAMTab';
