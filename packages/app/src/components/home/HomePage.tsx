@@ -48,7 +48,7 @@ export const HomePage = () => {
                 icon: <WikiIcon className={`${classes.quickLinkIcon} ${classes.wikiIcon}`} />,
               },
               {
-                url: 'https://dev.azure.com/essity-projects/Essity%20Infrastructure%20Services/_wiki/wikis/CET-Wiki/4462/Cloud-Team-Wiki',
+                url: 'https://backstage.io/docs/overview/what-is-backstage',
                 label: 'Learn Backstage',
                 icon: <img src={backStageBlackIcon} alt='backstage logo' className={classes.backstageIcon} />,
               },
