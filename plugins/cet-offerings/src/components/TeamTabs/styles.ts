@@ -1,4 +1,5 @@
-import { makeStyles } from '@material-ui/core';
+import { Backdrop, makeStyles } from '@material-ui/core';
+import { Transform } from '@material-ui/icons';
 
 type StyleClasses = {
   cardHeader: string;
@@ -29,7 +30,7 @@ export const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.shorter,
     }),
     '&:hover': {
-      transform: 'scale(1.3)',
+      transform: 'scale(1.5)',
     },
   },
 
@@ -37,8 +38,9 @@ export const useStyles = makeStyles((theme) => ({
     color: '#FF9800',
     '&:hover': {
       color: '#F57C00',
+      Transform: 'scale(1.5)',
     },
-    borderRadius: '30%',
+    borderRadius: '50%',
     backgroundColor: '#FFF3E0',
     padding: theme.spacing(1),
     fontSize: '2.5rem',
@@ -49,7 +51,7 @@ export const useStyles = makeStyles((theme) => ({
     '&:hover': {
       color: '#388E3C',
     },
-    borderRadius: '30%',
+    borderRadius: '50%',
     backgroundColor: '#E8F5E9',
     padding: theme.spacing(1),
     fontSize: '2.5rem',
@@ -159,6 +161,19 @@ export const useStyles = makeStyles((theme) => ({
     '& .MuiTab-root': {
       minHeight: 64,
       padding: theme.spacing(2),
+      transition: theme.transitions.create(['background-color', 'color'], {
+        duration: theme.transitions.duration.shorter,
+      }),
+      // backgroundColor: 'transparent',
+      // boxShadow: 'none',
+    },
+    '& .Mui-selected': {
+      backgroundColor: 'rgba(143, 140, 140, 0.11) !important',
+      // boxShadow: 'rgba(143, 140, 140, 0.11) !important',
+    },
+    '& .MuiTab-root:hover': {
+      backgroundColor: 'rgba(143, 140, 140, 0.11) !important',
+      // boxShadow: 'rgba(143, 140, 140, 0.11) !important',
     },
   },
 
@@ -198,6 +213,10 @@ export const useStyles = makeStyles((theme) => ({
 
   tabIcon: {
     marginRight: theme.spacing(1),
+    backgroundColor: theme.palette.background.paper,
+    transition: theme.transitions.create(['transform', 'background-color'], {
+      duration: theme.transitions.duration.shorter,
+    }),
   },
 
   tabPanel: {

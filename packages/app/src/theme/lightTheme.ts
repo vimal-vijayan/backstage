@@ -11,46 +11,46 @@ export const lightTheme = createUnifiedTheme({
     palette: {
       ...palettes.light,
       primary: {
-        main: '#051d55',  // Dark blue for primary
+        main: '#051d55',  // Dark Navy Blue
       },
       secondary: {
-        main: '#4D7CFE',  // Bright blue for secondary
+        main: '#4D7CFE',  // Bright Royal Blue
       },
       error: {
-        main: '#EF4444',  // Bright red for errors
+        main: '#EF4444',  // Bright Red
       },
       warning: {
-        main: '#F59E0B',  // Bright amber for warnings
+        main: '#F59E0B',  // Amber Orange
       },
       info: {
-        main: '#1C4E80',  // Strong blue for informational messages
+        main: '#1C4E80',  // Deep Blue
       },
       success: {
-        main: '#10B981',  // Bright green for success
+        main: '#10B981',  // Bright Green
       },
       background: {
-        default: '#F3F4F6',  // Light gray for a neutral background with better contrast
-        paper: '#FFFFFF',    // Pure white for paper elements
+        default: '#F3F4F6',  // Light Gray
+        paper: '#FFFFFF',    // Pure White
       },
       banner: {
-        info: '#1C4E80',
-        error: '#EF4444',
-        text: '#0A369D',
-        link: '#4D7CFE',
+        info: '#1C4E80',     // Deep Blue
+        error: '#EF4444',    // Bright Red
+        text: '#0A369D',     // Dark Royal Blue
+        link: '#4D7CFE',     // Bright Royal Blue
       },
-      errorBackground: '#FFCDD2',  // Light red for error backgrounds
-      warningBackground: '#FFECB3',  // Light amber for warning backgrounds
-      infoBackground: '#BBDEFB',  // Light blue for info backgrounds
+      errorBackground: '#FFCDD2',    // Soft Red
+      warningBackground: '#FFECB3',  // Light Amber
+      infoBackground: '#BBDEFB',     // Pale Blue
       navigation: {
-        background: '#051d55',  // Dark blue background for the sidebar
-        indicator: '#bb1a4a',   // Brown indicator to provide contrast
-        color: '#FFFFFF',       // White text for better contrast with dark blue background
-        selectedColor: '#E7527E', // Pink for selected items
+        background: '#051d55',       // Dark Navy Blue
+        indicator: '#bb1a4a',        // Deep Burgundy Red
+        color: '#FFFFFF',            // White
+        selectedColor: '#E7527E',    // Soft Pink-Red
         navItem: {
-          hoverBackground: '#374A77',  // Bright blue background for hovered items
+          hoverBackground: '#374A77',  // Medium Blue
         },
         submenu: {
-          background: '#374A77',  // Bright blue background for submenus
+          background: '#374A77',      // Medium Blue
         }
       },
     },
@@ -104,26 +104,26 @@ export const lightTheme = createUnifiedTheme({
     },
   },
   pageTheme: {
-    home: genPageTheme({ colors: ['#0A369D', '#A52A2A'], shape: shapes.wave }),
+    home: genPageTheme({ colors: ['#0A369D', '#A52A2A'], shape: shapes.wave }), // Dark Blue & Deep Red
     documentation: genPageTheme({
-      colors: ['#1C4E80', '#A52A2A'],
+      colors: ['#1C4E80', '#A52A2A'], // Deep Blue & Deep Red
       shape: shapes.wave2,
     }),
-    tool: genPageTheme({ colors: ['#4D7CFE', '#A52A2A'], shape: shapes.round }),
+    tool: genPageTheme({ colors: ['#4D7CFE', '#A52A2A'], shape: shapes.round }), // Bright Blue & Deep Red
     service: genPageTheme({
-      colors: ['#1C4E80', '#0A369D'],
+      colors: ['#1C4E80', '#0A369D'], // Deep Blue & Dark Blue
       shape: shapes.wave,
     }),
     website: genPageTheme({
-      colors: ['#4D7CFE', '#1C4E80'],
+      colors: ['#4D7CFE', '#1C4E80'], // Bright Blue & Deep Blue
       shape: shapes.wave,
     }),
     library: genPageTheme({
-      colors: ['#0A369D', '#4D7CFE'],
+      colors: ['#0A369D', '#4D7CFE'], // Dark Blue & Bright Blue
       shape: shapes.wave,
     }),
-    other: genPageTheme({ colors: ['#1C4E80', '#4D7CFE'], shape: shapes.wave }),
-    app: genPageTheme({ colors: ['#0A369D', '#4D7CFE'], shape: shapes.wave }),
-    apis: genPageTheme({ colors: ['#1C4E80', '#A52A2A'], shape: shapes.wave }),
+    other: genPageTheme({ colors: ['#1C4E80', '#4D7CFE'], shape: shapes.wave }), // Deep Blue & Bright Blue
+    app: genPageTheme({ colors: ['#0A369D', '#4D7CFE'], shape: shapes.wave }), // Dark Blue & Bright Blue
+    apis: genPageTheme({ colors: ['#1C4E80', '#A52A2A'], shape: shapes.wave }), // Deep Blue & Deep Red
   },
 });

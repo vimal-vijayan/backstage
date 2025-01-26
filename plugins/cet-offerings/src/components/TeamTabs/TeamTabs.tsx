@@ -8,7 +8,7 @@ import {
   HeaderLabel,
   SupportButton,
 } from '@backstage/core-components';
-import { Cloud, Security, Email, Storage } from '@material-ui/icons';
+import { Cloud, Security, Email } from '@material-ui/icons';
 import { TabPanel } from './TabPanel';
 import { CloudTab } from './CloudTab';
 import { IAMTab } from './IAMTab';

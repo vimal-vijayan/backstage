@@ -89,7 +89,8 @@ export const Root = ({ children }: PropsWithChildren<{}>) => {
           <SidebarItem icon={ExtensionIcon} to="api-docs" text="APIs" />
           <SidebarItem icon={LibraryBooks} to="docs" text="Docs" />
           <SidebarItem icon={CreateComponentIcon} to="create" text="Create..." />
-          <SidebarItem icon={LayersIcon} to="explore" text="Explore" />
+          {/* TODO: Expore sidebar item is Currently disabled. */}
+          {/* <SidebarItem icon={LayersIcon} to="explore" text="Explore" /> */}
           <SidebarItem icon={ThunderstormTwoToneIcon} to="cet-offerings" text="CET" />
           {/* Notifications */}
           <NotificationsSidebarItem />
@@ -103,11 +104,13 @@ export const Root = ({ children }: PropsWithChildren<{}>) => {
           {/* A submenu item (example) */}
           <SidebarItem icon={CreateComponentIcon} text="More">
             <SidebarSubmenu title="More Options">
-              <SidebarSubmenuItem
+              <SidebarDivider />
+              {/* TODO: Extra create submenu is currently disabled */}
+              {/* <SidebarSubmenuItem
                 title="Extra Create"
                 to="create/extra"
                 icon={CreateComponentIcon}
-              />
+              /> */}
               <SidebarSubmenuItem
                 title="Groups"
                 to="catalog?filters[kind]=group"
@@ -118,6 +121,7 @@ export const Root = ({ children }: PropsWithChildren<{}>) => {
                 to="catalog?filters[kind]=user"
                 icon={app.getSystemIcon('kind:user')}
               />
+              <SidebarDivider />
             </SidebarSubmenu>
           </SidebarItem>
           <SidebarDivider />

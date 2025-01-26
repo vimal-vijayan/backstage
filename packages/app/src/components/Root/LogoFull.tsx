@@ -11,6 +11,9 @@ const useStyles = makeStyles({
   path: {
     fill: '#7df3e1',
   },
+  transition: {
+    transition: 'all 0.3s',
+  }
 });
 const LogoFull = () => {
   const classes = useStyles();
