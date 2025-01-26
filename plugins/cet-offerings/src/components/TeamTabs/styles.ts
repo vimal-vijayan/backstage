@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core';
+import { Backdrop, makeStyles } from '@material-ui/core';
 import { Transform } from '@material-ui/icons';
 
 type StyleClasses = {
@@ -161,6 +161,19 @@ export const useStyles = makeStyles((theme) => ({
     '& .MuiTab-root': {
       minHeight: 64,
       padding: theme.spacing(2),
+      transition: theme.transitions.create(['background-color', 'color'], {
+        duration: theme.transitions.duration.shorter,
+      }),
+      // backgroundColor: 'transparent',
+      // boxShadow: 'none',
+    },
+    '& .Mui-selected': {
+      backgroundColor: 'rgba(143, 140, 140, 0.11) !important',
+      // boxShadow: 'rgba(143, 140, 140, 0.11) !important',
+    },
+    '& .MuiTab-root:hover': {
+      backgroundColor: 'rgba(143, 140, 140, 0.11) !important',
+      // boxShadow: 'rgba(143, 140, 140, 0.11) !important',
     },
   },
 
@@ -200,6 +213,10 @@ export const useStyles = makeStyles((theme) => ({
 
   tabIcon: {
     marginRight: theme.spacing(1),
+    backgroundColor: theme.palette.background.paper,
+    transition: theme.transitions.create(['transform', 'background-color'], {
+      duration: theme.transitions.duration.shorter,
+    }),
   },
 
   tabPanel: {
