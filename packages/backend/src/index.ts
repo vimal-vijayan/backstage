@@ -33,7 +33,8 @@ backend.add(import('@backstage/plugin-catalog-backend-module-msgraph'));
 backend.add(
   import('@backstage/plugin-catalog-backend-module-scaffolder-entity-model'),
 );
-
+// Azure DevOps catalog
+backend.add(import('@backstage/plugin-catalog-backend-module-azure'));
 // See https://backstage.io/docs/features/software-catalog/configuration#subscribing-to-catalog-errors
 backend.add(import('@backstage/plugin-catalog-backend-module-logs'));
 
