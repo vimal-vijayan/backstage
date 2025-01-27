@@ -79,5 +79,18 @@ export async function createRouter(
     }
   });
 
+  router.get('/config', async (_req, res) => {
+    try {
+      const ownerConfig = teamMembersService.getOwnerConfig();
+      res.json(ownerConfig);
+    } catch (error) {
+      logger.error('Failed to get owner config', {
+        error: error instanceof Error ? error.message : String(error),
+      });
+      
+      res.status(500).json({ error: 'Failed to fetch owner config' });
+    }
+  });
+
   return router;
 }

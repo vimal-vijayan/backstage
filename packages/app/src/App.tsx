@@ -143,7 +143,30 @@ const routes = (
         <ReportIssue />
       </TechDocsAddons>
     </Route>
-    <Route path="/create" element={<ScaffolderPage />} />
+    <Route path="/create" element={<ScaffolderPage
+    groups={
+      [{
+      title: "Recommended",
+      filter: entity =>
+        entity?.metadata?.tags?.includes('recommended') ?? false
+      },
+      {
+      title: "IAM",
+      filter: entity =>
+        entity?.metadata?.tags?.some(tag => ['iam', 'IAM', 'identity', 'Identity', 'entra'].includes(tag)) ?? false
+      },
+      {
+      title: "Azure",
+      filter: entity =>
+        entity?.metadata?.tags?.some(tag => ['azure', 'azure-services', 'Azure', 'AZURE', 'aks', 'AKS', 'k8s'].includes(tag)) ?? false
+      },
+      {
+      title: "Azure DevOps",
+      filter: entity =>
+        entity?.metadata?.tags?.some(tag => ['azure-devops', 'azuredevops'].includes(tag)) ?? false
+      },
+    ]
+    } />} />
     <Route path="/api-docs" element={<ApiExplorerPage />} />
     <Route
       path="/catalog-import"

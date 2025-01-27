@@ -3,7 +3,7 @@ app:
   baseUrl: http://localhost:3000
 
 organization:
-  name: My Company
+  name: "Essity"
 
 backend:
   # Used for enabling authentication, secret is shared by all backend plugins
@@ -18,7 +18,7 @@ backend:
     # Uncomment the following host directive to bind to specific interfaces
     # host: 127.0.0.1
   csp:
-    connect-src: ["'self'", 'http:', 'https:']
+    connect-src: ["'self'", "http:", "https:"]
     # Content-Security-Policy directives follow the Helmet format: https://helmetjs.github.io/#reference
     # Default Helmet Content-Security-Policy values can be removed by setting the key to false
   cors:
@@ -35,18 +35,22 @@ backend:
       user: ${PSQL_USER}
       password: ${PSQL_PASSWORD}
       ssl: ${PSQL_SSL}
+  logging:
+    level: debug
   # workingDirectory: /tmp # Use this to configure a working directory for the scaffolder, defaults to the OS temp-dir
 
 integrations:
-  github:
-    - host: github.com
-      # This is a Personal Access Token or PAT from GitHub. You can find out how to generate this token, and more information
-      # about setting up the GitHub integration here: https://backstage.io/docs/integrations/github/locations#configuration
-      token: ${GITHUB_TOKEN}
-    ### Example for how to add your GitHub Enterprise instance using the API:
-    # - host: ghe.example.net
-    #   apiBaseUrl: https://ghe.example.net/api/v3
-    #   token: ${GHE_TOKEN}
+  # github:
+  # This is a Personal Access Token or PAT from GitHub. You can find out how to generate this token, and more information
+  # about setting up the GitHub integration here: https://backstage.io/docs/integrations/github/locations#configuration
+  # - host: github.com
+  #   token: ${GITHUB_TOKEN}
+  azure:
+    - host: dev.azure.com
+      # token: ${AZURE_DEVOPS_TOKEN}
+      organization: essity-projects
+      credentials:
+        - personalAccessToken: ${AZURE_DEVOPS_TOKEN}
 
 notifications:
   enabled: true
@@ -64,11 +68,11 @@ proxy:
 # and an external cloud storage when deploying TechDocs for production use-case.
 # https://backstage.io/docs/features/techdocs/how-to-guides#how-to-migrate-from-techdocs-basic-to-recommended-deployment-approach
 techdocs:
-  builder: 'local' # Alternatives - 'external'
+  builder: "local" # Alternatives - 'external'
   generator:
-    runIn: 'docker' # Alternatives - 'local'
+    runIn: "docker" # Alternatives - 'local'
   publisher:
-    type: 'local' # Alternatives - 'googleGcs' or 'awsS3'. Read documentation for using alternatives.
+    type: "local" # Alternatives - 'googleGcs' or 'awsS3'. Read documentation for using alternatives.
 
 auth:
   # see https://backstage.io/docs/auth/ to learn about auth providers
@@ -87,9 +91,20 @@ auth:
           - Group.Read.All
 scaffolder:
   # see https://backstage.io/docs/features/software-templates/configuration for software template options
+  defaultAuthor:
+    name: "BackstageUser"
+    email: "backstagescaffolder@backstage.io"
+  defaultCommitMessage: "chore: scaffold entity"
+  integrations:
+    azure:
+      - host: dev.azure.com
+        token: ${AZURE_DEVOPS_TOKEN} #FIXME: Test , remove if not useful
+        credentials:
+          - personalAccessToken: ${AZURE_DEVOPS_TOKEN}
 
 catalog:
   orphanStrategy: delete
+  processingInterval: { minutes: 2 }
   providers:
     microsoftGraphOrg:
       ## READMORE: https://backstage.io/docs/integrations/azure/org
@@ -99,39 +114,59 @@ catalog:
         clientSecret: ${AUTH_MICROSOFT_CLIENT_SECRET}
         queryMode: basic
         user:
-          loadPhotos: true  # Load user photos from Microsoft Graph
+          loadPhotos: true # Load user photos from Microsoft Graph
           fetch:
             - displayName
             - mail
             - id
             - jobTitle
             - userPrincipalName
-        group: 
+        group:
           filter: startsWith(displayName, 'co-idp-launchpad-')
           fetch:
             - displayName
             - description
-        userGroupMember:      
+        userGroupMember:
           filter: startsWith(displayName, 'co-idp-launchpad-')
           includeSubGroups: true
         schedule:
           frequency: PT1M
           timeout: PT10M
+    azureDevops:
+      templateProvider:
+        host: 'dev.azure.com'
+        organization: 'essity-projects'
+        project: '"Essity Infrastructure Services"'
+        repository: 'cet-backstage-templates'
+        branch: 'main'
+        path: '/templates/*/*template.yaml'
+        token: ${AZURE_DEVOPS_TOKEN}
+        schedule:
+          frequency: { minutes: 2 }
+          timeout: { minutes: 10 }
+          scope: global
   import:
     entityFilename: catalog-info.yaml
     pullRequestBranchName: backstage-integration
   rules:
-    - allow: [Component, System, API, Resource, Location, Template, User, Group, Domain]
+    - allow: [ Component, System, API, Resource, Location, Template, User, Group, Domain, Policy]
   locations:
-    # Local example data, file locations are relative to the backend process, typically `packages/backend`
-    - type: file
-      target: ../../examples/entities.yaml
-
-    # Local example template
-    - type: file
-      target: ../../examples/template/template.yaml
+    - type: url
+      target: https://dev.azure.com/essity-projects/Essity%20Infrastructure%20Services/_git/cet-backstage-templates?path=/locations/cet-template-location.yaml
       rules:
-        - allow: [Template]
+        - allow: [Template, Location]
+      schedule:
+        frequency: { minutes: 1 }
+        timeout: { minutes: 10 }
+    # Local example data, file locations are relative to the backend process, typically `packages/backend`
+    # - type: file
+    #   target: ../../examples/entities.yaml
+
+    # # Local example template
+    # - type: file
+    #   target: ../../examples/template/template.yaml
+    #   rules:
+    #     - allow: [Template]
 
     # Local example organizational data
     # - type: file
@@ -141,7 +176,9 @@ catalog:
 
     ## Uncomment these lines to add more example data
     # - type: url
-    #   target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all.yaml
+    #   target: https://dev.azure.com/essity-projects/Essity%20Infrastructure%20Services/_git/cet-backstage-templates?path=/templates/test/test-template.yaml
+    #   rules:
+    #     - allow: [ Template, Component, System, API, Resource, Location, User, Group, Domain]
 
     ## Uncomment these lines to add an example org
     # - type: url
@@ -150,19 +187,22 @@ catalog:
     #     - allow: [User, Group]
 
 # kubernetes:
-  # see https://backstage.io/docs/features/kubernetes/configuration for kubernetes configuration options
+# see https://backstage.io/docs/features/kubernetes/configuration for kubernetes configuration options
 
 # see https://backstage.io/docs/permissions/getting-started for more on the permission framework
 permission:
   enabled: true
 
 customMicrosoftAuth:
-  groupPrefix: 'co-idp-launchpad-' # Prefix for groups to be considered as teams
+  groupPrefix: "co-idp-launchpad-" # Prefix for groups to be considered as teams
 
-teams:
-  - id: cloud
-    name: Cloud Team
-    groupId: "99f5611a-2840-43d7-9a03-5b30cafe4d41" # Azure AD Group ID : co-idp-cet-cloud-team-members  
-  - id: identity
-    name: Identity and Access Management
-    groupId: "28a8984d-d0e6-4cb0-bada-c70c3da23e4a" # Azure AD Group ID : co-idp-cet-iam-team-members
+cet:
+  owner: co-idp-launchpad-dev
+  lifecycle: Experimental # TODO: Change to Production
+  teams:
+    - id: cloud
+      name: Cloud Team
+      groupId: "99f5611a-2840-43d7-9a03-5b30cafe4d41" # Azure AD Group ID : co-idp-cet-cloud-team-members
+    - id: identity
+      name: Identity and Access Management
+      groupId: "28a8984d-d0e6-4cb0-bada-c70c3da23e4a" # Azure AD Group ID : co-idp-cet-iam-team-members

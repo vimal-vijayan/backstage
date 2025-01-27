@@ -118,7 +118,7 @@ const TabPanel = ({ children, value, index }: TabPanelProps) => (
   </div>
 );
 
-export const ExampleComponent = () => {
+export const FrontendComponent = () => {
   const classes = useStyles();
   const [selectedTab, setSelectedTab] = useState(0);
 

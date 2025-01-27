@@ -3,6 +3,8 @@ export interface TeamConfig {
     name: string;
     groupId: string;
     offerings: string[];
+    owner: string;
+    lifecycle: string;
   }
   
   export interface TeamMember {
@@ -17,6 +19,7 @@ export interface TeamConfig {
   export interface ITeamMembersService {
     getTeamMembers(teamId: string): Promise<TeamMember[]>;
     checkHealth(): Promise<HealthStatus>;
+    getOwnerConfig(): { owner: string, lifecycle: string };
   }
 
   export interface HealthStatus {
