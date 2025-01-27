@@ -46,13 +46,16 @@ export const TeamTabs = () => {
     setSelectedTab(newValue);
   };
 
-  
+
 
   return (
     <Page themeId="tool">
       <Header title="CET Offerings" subtitle="Cloud Enablement Services">
         <HeaderLabel label="Owner" value={
-          <Link to={`/catalog/default/group/${ownerConfig?.owner || 'default-owner'}`}>
+          <Link
+            to={`/catalog/default/group/${ownerConfig?.owner || 'default-owner'}`}
+            style={{ color: '#ffffff' }}  // or just 'white'
+          >
             {ownerConfig?.owner || "owner"}
           </Link>
         } />
