@@ -197,6 +197,8 @@ customMicrosoftAuth:
   groupPrefix: "co-idp-launchpad-" # Prefix for groups to be considered as teams
 
 cet:
+  owner: co-idp-launchpad-dev
+  lifecycle: Experimental # TODO: Change to Production
   teams:
     - id: cloud
       name: Cloud Team

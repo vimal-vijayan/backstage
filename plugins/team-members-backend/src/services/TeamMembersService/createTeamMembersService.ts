@@ -28,6 +28,8 @@ export class DefaultTeamMembersService implements ITeamMembersService {
                     name: teamConfig.getString('name'),
                     groupId: teamConfig.getString('groupId'),
                     offerings: teamConfig.getOptionalStringArray('offerings') ?? [],
+                    owner: this.config.getString('cet.owner'),
+                    lifecycle: this.config.getString('cet.lifecycle')
                 }));
                 this.logger.info(`Loaded ${this.teamConfigs.length} team configurations`);
             } else {
@@ -149,7 +151,7 @@ export class DefaultTeamMembersService implements ITeamMembersService {
                         } else {
                             this.logger.error('An unexpected error occurred while fetching photo for user')
                         }
-                        photoUrl = undefined; // No photo available
+                        photoUrl = undefined;
                     }
 
                     return {
@@ -158,7 +160,7 @@ export class DefaultTeamMembersService implements ITeamMembersService {
                         email: member.mail,
                         jobTitle: member.jobTitle,
                         offerings: teamConfig.offerings,
-                        photoUrl, // Include the photo URL
+                        photoUrl,
                     };
                 })
             );
@@ -203,6 +205,31 @@ export class DefaultTeamMembersService implements ITeamMembersService {
             return [];
         }
 
+    }
+
+    getOwnerConfig(): { owner: string, lifecycle: string } {
+        let owner:  string;
+        let lifecycle: string;
+
+        try {
+            owner = this.config.getString('cet.owner');
+        } catch (error) {
+            this.logger.warn('Failed to get owner config, using the default', {
+                error: error instanceof Error ? error.message : String(error),
+            })
+            owner = 'CET';
+        }
+
+        try {
+            lifecycle = this.config.getString('cet.lifecycle');
+        } catch (error) {
+            this.logger.warn('Failed to get lifecycle config, using the default', {
+                error: error instanceof Error ? error.message : String(error),
+            })
+            lifecycle = 'Beta';
+        }
+
+        return { owner, lifecycle };
     }
 
     async checkHealth(): Promise<HealthStatus> {
@@ -266,5 +293,6 @@ export interface HealthStatus {
 
 export interface TeamMembersService {
     getTeamMembers(teamId: string): Promise<TeamMember[]>;
-    checkHealth(): Promise<HealthStatus>;  // Add this new method
+    checkHealth(): Promise<HealthStatus>;
+    getOwnerConfig(): { owner: string, lifecycle: string };
 }
