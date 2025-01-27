@@ -16062,6 +16062,7 @@ __metadata:
     "@backstage/plugin-permission-node": "npm:^0.8.7"
     "@backstage/plugin-proxy-backend": "npm:^0.5.10"
     "@backstage/plugin-scaffolder-backend": "npm:^1.29.0"
+    "@backstage/plugin-scaffolder-backend-module-azure": "npm:^0.2.5"
     "@backstage/plugin-scaffolder-backend-module-github": "npm:^0.5.5"
     "@backstage/plugin-search-backend": "npm:^1.8.1"
     "@backstage/plugin-search-backend-module-catalog": "npm:^0.3.0"

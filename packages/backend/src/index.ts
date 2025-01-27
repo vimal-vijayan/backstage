@@ -67,6 +67,7 @@ import teamMembersPlugin from '@internal/backstage-plugin-team-members-backend';
 backend.add(teamMembersPlugin);
 
 // Azure devops custom action
+backend.add(import('@backstage/plugin-scaffolder-backend-module-azure'));
 // Azure Pipelines
 backend.add(import('@parfuemerie-douglas/scaffolder-backend-module-azure-pipelines'));
 // Azure Repos
