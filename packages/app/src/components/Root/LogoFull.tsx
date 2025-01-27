@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core';
 import MyCustomLogoFull from './logo/EssityWhite.png';
+import LogoColor from './logo/essity_logo_small.svg';
 
 const useStyles = makeStyles({
   svg: {
