@@ -67,7 +67,6 @@ export const TeamTabs = () => {
             aria-controls="team-services-tabpanel-2"
           />
           <Tab
-            // icon={<Storage className={`tabIcon ${classes.tabIcon  }`} />}
             icon={<img src={devopsLogo} alt='Azure DevOps Logo' className={classes.devopsLogo} />}
             label="Azure Devops"
             className={classes.devopsTab}

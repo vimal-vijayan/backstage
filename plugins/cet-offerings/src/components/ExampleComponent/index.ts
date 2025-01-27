@@ -1,1 +1,1 @@
-export { ExampleComponent } from './ExampleComponent';
+export { FrontendComponent } from './FrontendComponent';

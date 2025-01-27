@@ -22,8 +22,8 @@ export class DefaultTeamMembersService implements ITeamMembersService {
     private initializeService() {
         // Initialize team configurations with safe reading
         try {
-            if (this.config.has('teams')) {
-                this.teamConfigs = this.config.getConfigArray('teams').map(teamConfig => ({
+            if (this.config.has('cet.teams')) {
+                this.teamConfigs = this.config.getConfigArray('cet.teams').map(teamConfig => ({
                     id: teamConfig.getString('id'),
                     name: teamConfig.getString('name'),
                     groupId: teamConfig.getString('groupId'),
