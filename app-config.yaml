@@ -47,7 +47,6 @@ integrations:
   #   token: ${GITHUB_TOKEN}
   azure:
     - host: dev.azure.com
-      # token: ${AZURE_DEVOPS_TOKEN}
       organization: essity-projects
       credentials:
         - personalAccessToken: ${AZURE_DEVOPS_TOKEN}
@@ -206,4 +205,3 @@ cet:
     - id: identity
       name: Identity and Access Management
       groupId: "28a8984d-d0e6-4cb0-bada-c70c3da23e4a" # Azure AD Group ID : co-idp-cet-iam-team-members
-# TEST
