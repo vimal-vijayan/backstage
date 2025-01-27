@@ -11,7 +11,7 @@ export const lightTheme = createUnifiedTheme({
     palette: {
       ...palettes.light,
       primary: {
-        main: '#051d55',  // Dark Navy Blue
+        main: '#08005a',  // Dark Navy Blue
       },
       secondary: {
         main: '#4D7CFE',  // Bright Royal Blue
@@ -33,7 +33,7 @@ export const lightTheme = createUnifiedTheme({
         paper: '#FFFFFF',    // Pure White
       },
       banner: {
-        info: '#1C4E80',     // Deep Blue
+        info: '#00005A',     // Deep Blue
         error: '#EF4444',    // Bright Red
         text: '#0A369D',     // Dark Royal Blue
         link: '#4D7CFE',     // Bright Royal Blue
@@ -42,7 +42,7 @@ export const lightTheme = createUnifiedTheme({
       warningBackground: '#FFECB3',  // Light Amber
       infoBackground: '#BBDEFB',     // Pale Blue
       navigation: {
-        background: '#051d55',       // Dark Navy Blue
+        background: '#00005A',       // Dark Navy Blue
         indicator: '#bb1a4a',        // Deep Burgundy Red
         color: '#FFFFFF',            // White
         selectedColor: '#E7527E',    // Soft Pink-Red
@@ -104,26 +104,26 @@ export const lightTheme = createUnifiedTheme({
     },
   },
   pageTheme: {
-    home: genPageTheme({ colors: ['#0A369D', '#A52A2A'], shape: shapes.wave }), // Dark Blue & Deep Red
+    home: genPageTheme({ colors: ['#0A369D', '#800020'], shape: shapes.wave }), // Dark Blue & Deep Red
     documentation: genPageTheme({
-      colors: ['#1C4E80', '#A52A2A'], // Deep Blue & Deep Red
+      colors: ['#00005A', '#A52A2A'], // Deep Blue & Deep Red
       shape: shapes.wave2,
     }),
     tool: genPageTheme({ colors: ['#4D7CFE', '#A52A2A'], shape: shapes.round }), // Bright Blue & Deep Red
     service: genPageTheme({
-      colors: ['#1C4E80', '#0A369D'], // Deep Blue & Dark Blue
+      colors: ['#00005A', '#0A369D'], // Deep Blue & Dark Blue
       shape: shapes.wave,
     }),
     website: genPageTheme({
-      colors: ['#4D7CFE', '#1C4E80'], // Bright Blue & Deep Blue
+      colors: ['#00005A', '#1C4E80'], // Bright Blue & Deep Blue
       shape: shapes.wave,
     }),
     library: genPageTheme({
-      colors: ['#0A369D', '#4D7CFE'], // Dark Blue & Bright Blue
+      colors: ['#00005A', '#4D7CFE'], // Dark Blue & Bright Blue
       shape: shapes.wave,
     }),
-    other: genPageTheme({ colors: ['#1C4E80', '#4D7CFE'], shape: shapes.wave }), // Deep Blue & Bright Blue
-    app: genPageTheme({ colors: ['#0A369D', '#4D7CFE'], shape: shapes.wave }), // Dark Blue & Bright Blue
-    apis: genPageTheme({ colors: ['#1C4E80', '#A52A2A'], shape: shapes.wave }), // Deep Blue & Deep Red
+    other: genPageTheme({ colors: ['#00005A', '#800020'], shape: shapes.wave }), // Deep Blue & Bright Blue
+    app: genPageTheme({ colors: ['#00005A', '#800020'], shape: shapes.wave }), // Dark Blue & Bright Blue
+    apis: genPageTheme({ colors: ['#00005A', '#800020'], shape: shapes.wave }), // Deep Blue & Deep Red
   },
 });

@@ -1,5 +1,5 @@
 app:
-  title: Backstage
+  title: Launchpad
   baseUrl: http://localhost:3000
 
 organization:
@@ -153,7 +153,7 @@ catalog:
     - type: url
       target: https://dev.azure.com/essity-projects/Essity%20Infrastructure%20Services/_git/cet-backstage-templates?path=/locations/cet-template-location.yaml
       rules:
-        - allow: [Template, Location]
+        - allow: [ Component, System, API, Resource, Location, Template, User, Group, Domain, Policy]
       schedule:
         frequency: { minutes: 1 }
         timeout: { minutes: 10 }
