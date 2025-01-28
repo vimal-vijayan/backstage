@@ -124,10 +124,13 @@ export const darkIceTheme = createUnifiedTheme({
     },
     BackstageHeader: {
       styleOverrides: {
-        header: {
-          margin: '16px',
+        header: ({theme}) => ({
+          width: 'auto',
+          height: 'auto',
+          margin: '5px',
           boxShadow: 'none',
-        },
+          borderBottom: `6px solid ${theme.palette.primary.main}`,
+        }),
       },
     },
   },
