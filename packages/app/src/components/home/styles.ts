@@ -3,12 +3,12 @@ import { makeStyles } from "@material-ui/core";
 export const useStyles = makeStyles((theme) => ({
   // Logo styles with improved consistency
   logo: {
-    width: '300px',
+    width: '275px',
     height: 'auto',
     objectFit: 'contain',
-    // Add margin to maintain consistent spacing
-    margin: theme.spacing(1, 0),
-    // Improve transition smoothness
+    margin: '0 auto',
+    position: 'relative',
+    padding: theme.spacing(2, 0),
     transition: theme.transitions.create(
       ['opacity', 'filter', 'transform'],
       {
@@ -16,10 +16,8 @@ export const useStyles = makeStyles((theme) => ({
         easing: theme.transitions.easing.easeInOut,
       }
     ),
-    // Ensure consistent display
     display: 'block',
-    // Center the logo
-    marginLeft: 'auto',
+    marginLeft: '0',
     marginRight: 'auto',
   },
 
@@ -36,16 +34,12 @@ export const useStyles = makeStyles((theme) => ({
     '&:hover': {
       transform: 'scale(1.5)',
     },
-    // Ensure consistent positioning
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    // Add consistent size
     width: '2.5rem',
     height: '2.5rem',
-    // Maintain circular shape
     borderRadius: '50%',
-    // Add consistent spacing
     margin: theme.spacing(1),
   },
 
@@ -75,8 +69,8 @@ export const useStyles = makeStyles((theme) => ({
 
   // Backstage icon with improved theme handling
   backstageIcon: {
-    width: '36px',
-    height: '36px',
+    width: '30px',
+    height: '30px',
     color: theme.palette.type === 'dark' ? '#eaf5fe' : '#0078D4',
     display: 'flex',
     alignItems: 'center',
@@ -89,14 +83,13 @@ export const useStyles = makeStyles((theme) => ({
       }
     ),
     '&:hover': {
-      transform: 'scale(1.2)',
+      transform: 'scale(1.5)',
       color: theme.palette.type === 'dark' ? '#009e93' : '#005A9E',
       backgroundColor: theme.palette.type === 'dark' ? 'rgba(33, 150, 243, 0.2)' : '#E5F1FB',
     },
     borderRadius: '50%',
     backgroundColor: theme.palette.type === 'dark' ? 'rgba(33, 150, 243, 0.1)' : '#E5F1FB',
     padding: theme.spacing(1),
-    // Ensure consistent sizing
     boxSizing: 'content-box',
   },
 }));

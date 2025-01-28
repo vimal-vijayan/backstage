@@ -6,50 +6,81 @@ import {
   shapes,
 } from '@backstage/theme';
 
+// Color Palette Definition
+const colors = {
+  // Primary Colors
+  forestGreen: '#1B5E20',    // Primary main
+  lightGreen: '#66BB6A',     // Secondary main
+  
+  // Status Colors
+  firebrickRed: '#D32F2F',   // Error main
+  amberYellow: '#FBC02D',    // Warning main
+  royalBlue: '#1976D2',      // Info main
+  darkGreen: '#388E3C',      // Success main
+  
+  // Background Colors
+  paleGreen: '#E8F5E9',      // Background default
+  pureWhite: '#FFFFFF',      // Paper/card background
+  lightPinkRed: '#FFCDD2',   // Error background
+  paleYellow: '#FFF9C4',     // Warning background
+  lightSkyBlue: '#BBDEFB',   // Info background
+  
+  // Navigation Colors
+  sidebarGreen: '#1B5E20',   // Navigation background
+  navGreen: '#388E3C',       // Navigation hover & submenu
+  navIndicator: '#66BB6A',   // Navigation indicator & selected
+  navText: '#FFFFFF',        // Navigation text
+  
+  // Banner Colors
+  bannerGreen: '#1B5E20',    // Banner info & text
+  bannerRed: '#D32F2F',      // Banner error
+  bannerLink: '#66BB6A',     // Banner links
+};
+
 export const greenTheme = createUnifiedTheme({
   ...createBaseThemeOptions({
     palette: {
       ...palettes.light,
       primary: {
-        main: '#1B5E20',  // Forest Green (Primary)
+        main: colors.forestGreen,
       },
       secondary: {
-        main: '#66BB6A',  // Light Green (Secondary)
+        main: colors.lightGreen,
       },
       error: {
-        main: '#D32F2F',  // Firebrick Red (Error)
+        main: colors.firebrickRed,
       },
       warning: {
-        main: '#FBC02D',  // Amber Yellow (Warning)
+        main: colors.amberYellow,
       },
       info: {
-        main: '#1976D2',  // Royal Blue (Info)
+        main: colors.royalBlue,
       },
       success: {
-        main: '#388E3C',  // Dark Green (Success)
+        main: colors.darkGreen,
       },
       background: {
-        default: '#E8F5E9',  // Pale Green (Default Background)
-        paper: '#FFFFFF',    // Pure White (Paper Elements)
+        default: colors.paleGreen,
+        paper: colors.pureWhite,
       },
       banner: {
-        info: '#1B5E20',  // Forest Green (Info Banner)
-        error: '#D32F2F',  // Firebrick Red (Error Banner)
-        text: '#1B5E20',  // Forest Green (Text)
-        link: '#66BB6A',  // Light Green (Links)
+        info: colors.bannerGreen,
+        error: colors.bannerRed,
+        text: colors.bannerGreen,
+        link: colors.bannerLink,
       },
-      errorBackground: '#FFCDD2',  // Light Pink-Red (Error Background)
-      warningBackground: '#FFF9C4',  // Pale Yellow (Warning Background)
-      infoBackground: '#BBDEFB',  // Light Sky Blue (Info Background)
+      errorBackground: colors.lightPinkRed,
+      warningBackground: colors.paleYellow,
+      infoBackground: colors.lightSkyBlue,
       navigation: {
-        background: '#1B5E20',  // Forest Green (Sidebar Background)
-        indicator: '#66BB6A',   // Light Green (Active Indicator)
-        color: '#FFFFFF',       // Pure White (Navigation Text)
-        selectedColor: '#66BB6A',  // Light Green (Selected Item)
-        hoverBackground: '#388E3C', // Dark Green (Hover Background)
-        hoverColor: '#FFFFFF',   // Pure White (Hover Text)
+        background: colors.sidebarGreen,
+        indicator: colors.navIndicator,
+        color: colors.navText,
+        selectedColor: colors.navIndicator,
+        hoverBackground: colors.navGreen,
+        hoverColor: colors.navText,
         submenu: {
-          background: '#388E3C',  // Dark Green (Submenu Background)
+          background: colors.navGreen,
         },
       },
     },
@@ -60,37 +91,31 @@ export const greenTheme = createUnifiedTheme({
         fontSize: 64,
         fontWeight: 600,
         marginBottom: 16,
-        // color: '#1B5E20', // Forest Green
       },
       h2: {
         fontSize: 48,
         fontWeight: 600,
         marginBottom: 14,
-        // color: '#1B5E20', // Forest Green
       },
       h3: {
         fontSize: 36,
         fontWeight: 600,
         marginBottom: 12,
-        // color: '#1B5E20', // Forest Green
       },
       h4: {
         fontSize: 30,
         fontWeight: 600,
         marginBottom: 10,
-        // color: '#1B5E20', // Forest Green
       },
       h5: {
         fontSize: 24,
         fontWeight: 600,
         marginBottom: 8,
-        // color: '#1B5E20', // Forest Green
       },
       h6: {
         fontSize: 20,
         fontWeight: 600,
         marginBottom: 6,
-        // color: '#1B5E20', // Forest Green
       },
     },
   }),
@@ -103,32 +128,47 @@ export const greenTheme = createUnifiedTheme({
           width: 'auto',
           margin: '5px',
           boxShadow: 'none',
-          borderBottom: `6px solid ${theme.palette.primary.main}`, // Forest Green
+          borderBottom: `6px solid ${theme.palette.primary.main}`,
         }),
       },
     },
   },
   pageTheme: {
-    home: genPageTheme({ colors: ['#1B5E20', '#66BB6A'], shape: shapes.wave }), // Forest Green & Light Green
+    home: genPageTheme({
+      colors: [colors.forestGreen, colors.lightGreen],
+      shape: shapes.wave,
+    }),
     documentation: genPageTheme({
-      colors: ['#1B5E20', '#66BB6A'], // Forest Green & Light Green
+      colors: [colors.forestGreen, colors.lightGreen],
       shape: shapes.wave2,
     }),
-    tool: genPageTheme({ colors: ['#66BB6A', '#1B5E20'], shape: shapes.round }), // Light Green & Forest Green
+    tool: genPageTheme({
+      colors: [colors.lightGreen, colors.forestGreen],
+      shape: shapes.round,
+    }),
     service: genPageTheme({
-      colors: ['#1B5E20', '#66BB6A'], // Forest Green & Light Green
+      colors: [colors.forestGreen, colors.lightGreen],
       shape: shapes.wave,
     }),
     website: genPageTheme({
-      colors: ['#66BB6A', '#1B5E20'], // Light Green & Forest Green
+      colors: [colors.lightGreen, colors.forestGreen],
       shape: shapes.wave,
     }),
     library: genPageTheme({
-      colors: ['#1B5E20', '#66BB6A'], // Forest Green & Light Green
+      colors: [colors.forestGreen, colors.lightGreen],
       shape: shapes.wave,
     }),
-    other: genPageTheme({ colors: ['#1B5E20', '#66BB6A'], shape: shapes.wave }), // Forest Green & Light Green
-    app: genPageTheme({ colors: ['#1B5E20', '#66BB6A'], shape: shapes.wave }), // Forest Green & Light Green
-    apis: genPageTheme({ colors: ['#1B5E20', '#66BB6A'], shape: shapes.wave }), // Forest Green & Light Green
+    other: genPageTheme({
+      colors: [colors.forestGreen, colors.lightGreen],
+      shape: shapes.wave,
+    }),
+    app: genPageTheme({
+      colors: [colors.forestGreen, colors.lightGreen],
+      shape: shapes.wave,
+    }),
+    apis: genPageTheme({
+      colors: [colors.forestGreen, colors.lightGreen],
+      shape: shapes.wave,
+    }),
   },
 });
