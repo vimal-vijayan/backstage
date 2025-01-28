@@ -22,12 +22,6 @@ import {
 import { TechDocsAddons } from '@backstage/plugin-techdocs-react';
 import { ReportIssue } from '@backstage/plugin-techdocs-module-addons-contrib';
 import { UserSettingsPage } from '@backstage/plugin-user-settings';
-import { apis } from './apis';
-import { entityPage } from './components/catalog/EntityPage';
-import { searchPage } from './components/search/SearchPage';
-import { Root } from './components/Root';
-import { providers } from './components/singin/identityProviders';
-
 import {
   AlertDisplay,
   OAuthRequestDialog,
@@ -38,18 +32,114 @@ import { AppRouter, FlatRoutes } from '@backstage/core-app-api';
 import { CatalogGraphPage } from '@backstage/plugin-catalog-graph';
 import { RequirePermission } from '@backstage/plugin-permission-react';
 import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/alpha';
-import {darkTheme} from './theme/darkTheme';
-import {greenTheme} from './theme/greenTheme';
-import {lightTheme} from './theme/lightTheme';
-import {mochaMousseTheme} from './theme/mochaMouse';
-import {darkIceTheme} from './theme/customTheme';
-import LightIcon from '@material-ui/icons/WbSunny';
-import { UnifiedThemeProvider} from '@backstage/theme';
+import { UnifiedThemeProvider } from '@backstage/theme';
 import { HomepageCompositionRoot } from '@backstage/plugin-home';
-import { HomePage } from './components/home/HomePage';
 import { NotificationsPage } from '@backstage/plugin-notifications';
 import { CetOfferingsPage } from '@internal/backstage-plugin-cet-offerings';
+import LightIcon from '@material-ui/icons/WbSunny';
 
+// Local imports
+import { apis } from './apis';
+import { entityPage } from './components/catalog/EntityPage';
+import { searchPage } from './components/search/SearchPage';
+import { Root } from './components/Root';
+import { providers } from './components/singin/identityProviders';
+import { HomePage } from './components/home/HomePage';
+import { darkTheme } from './theme/darkTheme';
+import { greenTheme } from './theme/greenTheme';
+import { lightTheme } from './theme/lightTheme';
+import { mochaMousseTheme } from './theme/mochaMouse';
+import { darkIceTheme } from './theme/customTheme';
+
+// Type definitions
+interface Entity {
+  metadata?: {
+    tags?: string[];
+  };
+}
+
+// Theme configurations
+type ThemeVariant = 'light' | 'dark';
+
+interface ThemeConfig {
+  id: string;
+  title: string;
+  variant: ThemeVariant;
+  theme: typeof lightTheme;
+}
+
+// import themes
+const themeConfigs: ThemeConfig[] = [
+  {
+    id: 'light',
+    title: 'Light',
+    variant: 'light',
+    theme: lightTheme,
+  },
+  {
+    id: 'dark',
+    title: 'Dark',
+    variant: 'dark',
+    theme: darkTheme,
+  },
+  {
+    id: 'green',
+    title: 'Eco',
+    variant: 'light',
+    theme: greenTheme,
+  },
+  {
+    id: 'mochaMousse',
+    title: 'Mocha Mousse',
+    variant: 'light',
+    theme: mochaMousseTheme,
+  },
+  {
+    id: 'darkIce',
+    title: 'Dark Ice',
+    variant: 'light',
+    theme: darkIceTheme,
+  },
+];
+
+// Template scaffolder filters
+const scaffolderGroups = [
+  {
+    title: 'Recommended',
+    filter: (entity: Entity) => entity?.metadata?.tags?.includes('recommended') ?? false,
+  },
+  {
+    title: 'IAM',
+    filter: (entity: Entity) =>
+      entity?.metadata?.tags?.some((tag: string) =>
+        ['iam', 'IAM', 'identity', 'Identity', 'entra'].includes(tag),
+      ) ?? false,
+  },
+  {
+    title: 'Azure',
+    filter: (entity: Entity) =>
+      entity?.metadata?.tags?.some((tag: string) =>
+        [
+          'azure',
+          'azure-services',
+          'Azure',
+          'AZURE',
+          'aks',
+          'AKS',
+          'k8s',
+        ].includes(tag),
+      ) ?? false,
+  },
+  {
+    title: 'Azure DevOps',
+    filter: (entity: Entity) =>
+      entity?.metadata?.tags?.some((tag: string) =>
+        ['azure-devops', 'azuredevops'].includes(tag),
+      ) ?? false,
+  },
+];
+
+// App configuration
 const app = createApp({
   apis,
   bindRoutes({ bind }) {
@@ -71,64 +161,27 @@ const app = createApp({
   },
   components: {
     SignInPage: props => (
-      <SignInPage
-        {...props}
-        auto
-        providers={providers}
-        align='center'
-      />
-    )
+      <SignInPage {...props} auto providers={providers} align="center" />
+    ),
   },
-  themes: [{
-    id: 'light',
-    title: 'Light',
-    variant: 'light',
+  themes: themeConfigs.map(({ id, title, variant, theme }) => ({
+    id,
+    title,
+    variant,
     icon: <LightIcon />,
     Provider: ({ children }) => (
-      <UnifiedThemeProvider theme={lightTheme} children={children} />
+      <UnifiedThemeProvider theme={theme} children={children} />
     ),
-  }, {
-    id: 'dark',
-    title: 'Dark',
-    variant: 'dark',
-    icon: <LightIcon />,
-    Provider: ({ children }) => (
-      <UnifiedThemeProvider theme={darkTheme} children={children} />
-    ),
-  }, {
-    id: 'green',
-    title: 'Eco',
-    variant: 'light',
-    icon: <LightIcon />,
-    Provider: ({ children }) => (
-      <UnifiedThemeProvider theme={greenTheme} children={children} />
-    ),
-  }, {
-    id: 'mochaMousse',
-    title: 'Mocha Mousse',
-    variant: 'light',
-    icon: <LightIcon />,
-    Provider: ({ children }) => (
-      <UnifiedThemeProvider theme={mochaMousseTheme} children={children} />
-    ),
-  },{
-    id: 'darkIce',
-    title: 'Dark Ice',
-    variant: 'light',
-    icon: <LightIcon />,
-    Provider: ({ children }) => (
-      <UnifiedThemeProvider theme={darkIceTheme} children={children} />
-    ),
-  }],
+  })),
 });
 
+// Route configuration
 const routes = (
   <FlatRoutes>
-    {/* <Route path="/" element={<Navigate to="catalog" />} /> */}
     <Route path="/" element={<HomepageCompositionRoot />}>
       <HomePage />
     </Route>
-    <Route path='/catalog' element={<CatalogIndexPage />} />
+    <Route path="/catalog" element={<CatalogIndexPage />} />
     <Route
       path="/catalog/:namespace/:kind/:name"
       element={<CatalogEntityPage />}
@@ -136,7 +189,7 @@ const routes = (
       {entityPage}
     </Route>
     <Route path="/docs" element={<TechDocsIndexPage />} />
-      <DefaultTechDocsHome />
+    <DefaultTechDocsHome />
     <Route
       path="/docs/:namespace/:kind/:name/*"
       element={<TechDocsReaderPage />}
@@ -145,30 +198,10 @@ const routes = (
         <ReportIssue />
       </TechDocsAddons>
     </Route>
-    <Route path="/create" element={<ScaffolderPage
-    groups={
-      [{
-      title: "Recommended",
-      filter: entity =>
-        entity?.metadata?.tags?.includes('recommended') ?? false
-      },
-      {
-      title: "IAM",
-      filter: entity =>
-        entity?.metadata?.tags?.some(tag => ['iam', 'IAM', 'identity', 'Identity', 'entra'].includes(tag)) ?? false
-      },
-      {
-      title: "Azure",
-      filter: entity =>
-        entity?.metadata?.tags?.some(tag => ['azure', 'azure-services', 'Azure', 'AZURE', 'aks', 'AKS', 'k8s'].includes(tag)) ?? false
-      },
-      {
-      title: "Azure DevOps",
-      filter: entity =>
-        entity?.metadata?.tags?.some(tag => ['azure-devops', 'azuredevops'].includes(tag)) ?? false
-      },
-    ]
-    } />} />
+    <Route
+      path="/create"
+      element={<ScaffolderPage groups={scaffolderGroups} />}
+    />
     <Route path="/api-docs" element={<ApiExplorerPage />} />
     <Route
       path="/catalog-import"
