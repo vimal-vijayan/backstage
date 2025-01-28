@@ -26,7 +26,7 @@ const colors = {
   paleBlue: '#BBDEFB',         // Info background
 
   // Navigation Colors
-  darkerNavyBlue: '#1c165f',   // Navigation background
+  darkerNavyBlue: '#20235C',   // Navigation background
   deepBurgundy: '#bb1a4a',     // Navigation indicator
   softPinkRed: '#E7527E',      // Navigation selected color
   mediumBlue: '#374A77',       // Navigation hover & submenu
