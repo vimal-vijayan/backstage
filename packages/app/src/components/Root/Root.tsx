@@ -9,10 +9,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import GroupIcon from '@material-ui/icons/People';
 import CategoryIcon from '@material-ui/icons/Category';
-import LayersIcon from '@material-ui/icons/Layers';
 import ThunderstormTwoToneIcon from '@mui/icons-material/ThunderstormTwoTone';
-
 import { NotificationsSidebarItem } from '@backstage/plugin-notifications';
+// import LayersIcon from '@material-ui/icons/Layers';
 
 import {
   Sidebar,

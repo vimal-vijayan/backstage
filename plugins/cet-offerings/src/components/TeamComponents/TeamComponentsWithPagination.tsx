@@ -66,7 +66,7 @@ const TeamTable = ({ users, teamName }: { users: TeamMember[]; teamName: string 
     setIsExpanded(!isExpanded);
   };
 
-  const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+  const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
 

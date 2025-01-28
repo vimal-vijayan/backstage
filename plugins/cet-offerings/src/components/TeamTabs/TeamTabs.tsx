@@ -42,7 +42,7 @@ export const TeamTabs = () => {
   if (loading) return <Progress />;
   if (error) return <ResponseErrorPanel error={error} />;
 
-  const handleTabChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+  const handleTabChange = (_event: React.ChangeEvent<{}>, newValue: number) => {
     setSelectedTab(newValue);
   };
 

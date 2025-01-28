@@ -122,7 +122,7 @@ export const FrontendComponent = () => {
   const classes = useStyles();
   const [selectedTab, setSelectedTab] = useState(0);
 
-  const handleTabChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+  const handleTabChange = (_event: React.ChangeEvent<{}>, newValue: number) => {
     setSelectedTab(newValue);
   };
 

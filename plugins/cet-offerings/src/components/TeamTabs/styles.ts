@@ -1,18 +1,18 @@
-import { Backdrop, makeStyles } from '@material-ui/core';
-import { Transform } from '@material-ui/icons';
+import { makeStyles } from '@material-ui/core';
+// import { Transform } from '@material-ui/icons';
 
-type StyleClasses = {
-  cardHeader: string;
-  cloudIcon: string;
-  securityIcon: string;
-  tabs: string;
-  cloudTab: string;
-  securityTab: string;
-  tabIcon: string;
-  tabPanel: string;
-  devopsTab: string;
-  devopsIcon: string;
-};
+// type StyleClasses = {
+//   cardHeader: string;
+//   cloudIcon: string;
+//   securityIcon: string;
+//   tabs: string;
+//   cloudTab: string;
+//   securityTab: string;
+//   tabIcon: string;
+//   tabPanel: string;
+//   devopsTab: string;
+//   devopsIcon: string;
+// };
 
 export const useStyles = makeStyles((theme) => ({
   cardHeader: {
