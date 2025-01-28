@@ -22,7 +22,7 @@ const colors = {
   darkerSkyBlue: '#106ba3' // Darker Sky Blue - Button hover state
 };
 
-export const myCustomTheme = createUnifiedTheme({
+export const darkIceTheme = createUnifiedTheme({
   ...createBaseThemeOptions({
     palette: {
       ...palettes.dark,
