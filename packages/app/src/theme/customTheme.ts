@@ -6,41 +6,57 @@ import {
   shapes,
 } from '@backstage/theme';
 
+// Color Palette Definition
+const colors = {
+  skyBlue: '#1D9BF0',      // Bright Sky Blue - Primary brand color
+  lightCyan: '#A5F3FC',    // Light Cyan Blue - Secondary accent color
+  charcoal: '#181818',     // Deep Charcoal Gray - Main background
+  darkGray: '#282828',     // Dark Gray - Paper/card background
+  darkerGray: '#252525',   // Darker Charcoal Gray - Navigation background
+  mediumGray: '#424242',   // Medium Dark Gray - Submenu background
+  blueGray: '#607D8B',     // Muted Blue-Gray - Hover state in submenu
+  brightBlue: '#374A77',   // Bright Blue - Hover state in navigation
+  deepSkyBlue: '#00BFFF',  // Deep Sky Blue - Navigation indicators
+  magentaPink: '#EE2A7B',  // Vivid Magenta Pink - Error states
+  pureWhite: '#FFFFFF',    // Pure White - Text and contrast
+  darkerSkyBlue: '#106ba3' // Darker Sky Blue - Button hover state
+};
+
 export const myCustomTheme = createUnifiedTheme({
   ...createBaseThemeOptions({
     palette: {
       ...palettes.dark,
       primary: {
-        main: '#1D9BF0',  // Bright Sky Blue
+        main: colors.skyBlue,
       },
       secondary: {
-        main: '#A5F3FC',  // Light Cyan Blue
+        main: colors.lightCyan,
       },
       background: {
-        default: '#181818',  // Deep Charcoal Gray
-        paper: '#282828',  // Dark Gray
+        default: colors.charcoal,
+        paper: colors.darkGray,
       },
       banner: {
-        info: '#A5F3FC',  // Light Cyan Blue
-        error: '#EE2A7B',  // Vivid Magenta Pink
-        text: '#FFFFFF',  // Pure White
-        link: '#1D9BF0',  // Bright Sky Blue
+        info: colors.lightCyan,
+        error: colors.magentaPink,
+        text: colors.pureWhite,
+        link: colors.skyBlue,
       },
       navigation: {
-        background: '#252525',  // Dark Charcoal Gray
-        indicator: '#00BFFF',  // Deep Sky Blue
-        color: '#FFFFFF',  // Pure White
-        selectedColor: '#00BFFF',  // Deep Sky Blue
+        background: colors.darkerGray,
+        indicator: colors.deepSkyBlue,
+        color: colors.pureWhite,
+        selectedColor: colors.deepSkyBlue,
         navItem: {
-          hoverBackground: '#374A77',  // Bright Blue
+          hoverBackground: colors.brightBlue,
         },
         submenu: {
-          background: '#424242',  // Medium Dark Gray
-          color: '#FFFFFF',  // Pure White
+          background: colors.mediumGray,
+          color: colors.pureWhite,
           navigation: {
-            hoverBackground: '#607D8B',  // Muted Blue-Gray
-            background: '#252525',  // Dark Charcoal Gray
-            color: '#FFFFFF',  // Pure White
+            hoverBackground: colors.blueGray,
+            background: colors.darkerGray,
+            color: colors.pureWhite,
           },
         },
       },
@@ -48,7 +64,6 @@ export const myCustomTheme = createUnifiedTheme({
     typography: {
       fontFamily: 'Roboto, sans-serif',
       htmlFontSize: 16,
-
       h1: {
         fontSize: 64,
         fontWeight: 600,
@@ -85,7 +100,6 @@ export const myCustomTheme = createUnifiedTheme({
   defaultPageTheme: 'home',
   fontFamily: 'Roboto',
   components: {
-    
     MuiButton: {
       styleOverrides: {
         root: {
@@ -94,9 +108,9 @@ export const myCustomTheme = createUnifiedTheme({
           fontWeight: 600,
         },
         containedPrimary: {
-          backgroundColor: '#1D9BF0',  // Bright Sky Blue
+          backgroundColor: colors.skyBlue,
           '&:hover': {
-            backgroundColor: '#106ba3',  // Darker Sky Blue
+            backgroundColor: colors.darkerSkyBlue,
           },
         },
       },
@@ -108,14 +122,11 @@ export const myCustomTheme = createUnifiedTheme({
         },
       },
     },
-
     BackstageHeader: {
       styleOverrides: {
         header: {
           margin: '16px',
           boxShadow: 'none',
-          // Example custom background color:
-          // backgroundColor: '#1D9BF0',  // Bright Sky Blue
         },
       },
     },
@@ -123,19 +134,19 @@ export const myCustomTheme = createUnifiedTheme({
 
   pageTheme: {
     home: genPageTheme({
-      colors: ['#1D9BF0', '#A5F3FC'],  // Bright Sky Blue & Light Cyan Blue
+      colors: [colors.skyBlue, colors.lightCyan], // Primary + Secondary colors
       shape: shapes.wave,
     }),
     documentation: genPageTheme({
-      colors: ['#A5F3FC', '#1D9BF0'],  // Light Cyan Blue & Bright Sky Blue
+      colors: [colors.lightCyan, colors.skyBlue], // Secondary + Primary colors
       shape: shapes.wave2,
     }),
     tool: genPageTheme({
-      colors: ['#1D9BF0', '#A5F3FC'],  // Bright Sky Blue & Light Cyan Blue
+      colors: [colors.skyBlue, colors.lightCyan], // Primary + Secondary colors
       shape: shapes.round,
     }),
     service: genPageTheme({
-      colors: ['#1D9BF0', '#A5F3FC'],  // Bright Sky Blue & Light Cyan Blue
+      colors: [colors.skyBlue, colors.lightCyan], // Primary + Secondary colors
       shape: shapes.wave,
     }),
   },
