@@ -11,7 +11,7 @@ export const lightTheme = createUnifiedTheme({
     palette: {
       ...palettes.light,
       primary: {
-        main: '#08005a',  // Dark Navy Blue
+        main: '#20196A',  // Dark Navy Blue
       },
       secondary: {
         main: '#4D7CFE',  // Bright Royal Blue
@@ -42,7 +42,7 @@ export const lightTheme = createUnifiedTheme({
       warningBackground: '#FFECB3',  // Light Amber
       infoBackground: '#BBDEFB',     // Pale Blue
       navigation: {
-        background: '#00005A',       // Dark Navy Blue
+        background: '#1c165f',       // Dark Navy Blue
         indicator: '#bb1a4a',        // Deep Burgundy Red
         color: '#FFFFFF',            // White
         selectedColor: '#E7527E',    // Soft Pink-Red
