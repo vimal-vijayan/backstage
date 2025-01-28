@@ -49,7 +49,7 @@ import { darkTheme } from './theme/darkTheme';
 import { greenTheme } from './theme/greenTheme';
 import { lightTheme } from './theme/lightTheme';
 import { mochaMousseTheme } from './theme/mochaMouse';
-import { darkIceTheme } from './theme/customTheme';
+import { darkIceTheme } from './theme/darkIce';
 
 // Type definitions
 interface Entity {
