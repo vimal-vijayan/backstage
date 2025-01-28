@@ -1,55 +1,83 @@
 app:
-  # Should be the same as backend.baseUrl when using the `app-backend` plugin.
   baseUrl: http://localhost:7007
 
 backend:
-  # Note that the baseUrl should be the URL that the browser and other clients
-  # should use when communicating with the backend, i.e. it needs to be
-  # reachable not just from within the backend host, but from all of your
-  # callers. When its value is "http://localhost:7007", it's strictly private
-  # and can't be reached by others.
   baseUrl: http://localhost:7007
-  # The listener can also be expressed as a single <host>:<port> string. In this case we bind to
-  # all interfaces, the most permissive setting. The right value depends on your specific deployment.
+  cors:
+    origin: ["http://localhost:7007"] # Add the URL of your frontend here
+    methods: ["GET", "POST", "PUT", "DELETE", "HEAD", "PATCH"]
+    credentials: true
   listen: ':7007'
-
-  # config options: https://node-postgres.com/apis/client
   database:
     client: pg
     connection:
-      host: ${POSTGRES_HOST}
-      port: ${POSTGRES_PORT}
-      user: ${POSTGRES_USER}
-      password: ${POSTGRES_PASSWORD}
-      # https://node-postgres.com/features/ssl
-      # you can set the sslmode configuration option via the `PGSSLMODE` environment variable
-      # see https://www.postgresql.org/docs/current/libpq-ssl.html Table 33.1. SSL Mode Descriptions (e.g. require)
-      # ssl:
-      #   ca: # if you have a CA file and want to verify it you can uncomment this section
-      #     $file: <file-path>/ca/server.crt
+      host: ${PSQL_HOST}
+      port: ${PSQL_PORT}
+      user: ${PSQL_USER}
+      password: ${PSQL_PASSWORD}
+      ssl: ${PSQL_SSL}
+    pool:
+      min: 2
+      max: 10
+  logging:
+    level: info
 
 auth:
   providers:
     guest: {}
 
 catalog:
-  # Overrides the default list locations from app-config.yaml as these contain example data.
-  # See https://backstage.io/docs/features/software-catalog/#adding-components-to-the-catalog for more details
-  # on how to get entities into the catalog.
+  orphanStrategy: delete
+  processingInterval: { minutes: 2 }
+  providers:
+    microsoftGraphOrg:
+      default:
+        tenantId: ${AUTH_MICROSOFT_TENANT_ID}
+        clientId: ${AUTH_MICROSOFT_CLIENT_ID}
+        clientSecret: ${AUTH_MICROSOFT_CLIENT_SECRET}
+        queryMode: basic
+        user:
+          loadPhotos: true # Load user photos from Microsoft Graph
+          fetch:
+            - displayName
+            - mail
+            - id
+            - jobTitle
+            - userPrincipalName
+        group:
+          filter: startsWith(displayName, 'co-idp-launchpad-')
+          fetch:
+            - displayName
+            - description
+        userGroupMember:
+          filter: startsWith(displayName, 'co-idp-launchpad-')
+          includeSubGroups: true
+        schedule:
+          frequency: PT1M
+          timeout: PT10M
+    azureDevops:
+      templateProvider:
+        host: 'dev.azure.com'
+        organization: 'essity-projects'
+        project: '"Essity Infrastructure Services"'
+        repository: 'cet-backstage-templates'
+        branch: 'main'
+        path: '/templates/*/*template.yaml'
+        token: ${AZURE_DEVOPS_TOKEN}
+        schedule:
+          frequency: { minutes: 2 }
+          timeout: { minutes: 10 }
+          scope: global
+  import:
+    entityFilename: catalog-info.yaml
+    pullRequestBranchName: backstage-integration
+  rules:
+    - allow: [ Component, System, API, Resource, Location, Template, User, Group, Domain, Policy]
   locations:
-    # Local example data, replace this with your production config, these are intended for demo use only.
-    # File locations are relative to the backend process, typically in a deployed context, such as in a Docker container, this will be the root
-    - type: file
-      target: ./examples/entities.yaml
-
-    # Local example template
-    - type: file
-      target: ./examples/template/template.yaml
+    - type: url
+      target: https://dev.azure.com/essity-projects/Essity%20Infrastructure%20Services/_git/cet-backstage-templates?path=/locations/cet-template-location.yaml
       rules:
-        - allow: [Template]
-
-    # Local example organizational data
-    - type: file
-      target: ./examples/org.yaml
-      rules:
-        - allow: [User, Group]
+        - allow: [ Component, System, API, Resource, Location, Template, User, Group, Domain, Policy]
+      schedule:
+        frequency: { minutes: 1 }
+        timeout: { minutes: 10 }

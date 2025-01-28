@@ -35,14 +35,6 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     apt-get install -y --no-install-recommends python3 g++ build-essential && \
     rm -rf /var/lib/apt/lists/*
 
-# Install sqlite3 dependencies. You can skip this if you don't use sqlite3 in the image,
-# in which case you should also move better-sqlite3 to "devDependencies" in package.json.
-RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
-    --mount=type=cache,target=/var/lib/apt,sharing=locked \
-    apt-get update && \
-    apt-get install -y --no-install-recommends libsqlite3-dev && \
-    rm -rf /var/lib/apt/lists/*
-
 USER node
 WORKDIR /app
 
@@ -113,5 +105,11 @@ ENV NODE_ENV=production
 
 # This disables node snapshot for Node 20 to work with the Scaffolder
 ENV NODE_OPTIONS="--no-node-snapshot"
+
+# Add health check (Uncomment when endpoint is available)
+# HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD [ "curl", "-f", "http://localhost:7007/health" ]
+
+# Start the Backstage backend
+
 
 CMD ["node", "packages/backend", "--config", "app-config.yaml", "--config", "app-config.production.yaml"]

@@ -1,6 +1,7 @@
 app:
   title: Launchpad
-  baseUrl: http://localhost:3000
+  # baseUrl: http://localhost:3000  # Keep this if frontend is served from a different host
+  baseUrl: http://localhost:7007
 
 organization:
   name: "Essity"
@@ -157,6 +158,7 @@ catalog:
       schedule:
         frequency: { minutes: 1 }
         timeout: { minutes: 10 }
+        
     # Local example data, file locations are relative to the backend process, typically `packages/backend`
     # - type: file
     #   target: ../../examples/entities.yaml
